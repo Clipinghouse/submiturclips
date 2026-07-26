@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,6 +29,33 @@ export default function Home() {
 
   const [botField, setBotField] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Persist form state to sessionStorage so navigating to legal pages doesn't lose data
+  useEffect(() => {
+    const saved = sessionStorage.getItem("submitklips_form");
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        setStep(data.step ?? 0);
+        setCreditedName(data.creditedName ?? "");
+        setIsAdult(data.isAdult ?? null);
+        setGuardianName(data.guardianName ?? "");
+        setClipLink(data.clipLink ?? "");
+        setDescription(data.description ?? "");
+        setSelfFilmed(data.selfFilmed ?? null);
+        setWantsCredit(data.wantsCredit ?? null);
+        setRules(data.rules ?? { noCopyright: false, noGraphic: false, noViolation: false, agreedTerms: false });
+      } catch { }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (step < 4) {
+      sessionStorage.setItem("submitklips_form", JSON.stringify({
+        step, creditedName, isAdult, guardianName, clipLink, description, selfFilmed, wantsCredit, rules
+      }));
+    }
+  }, [step, creditedName, isAdult, guardianName, clipLink, description, selfFilmed, wantsCredit, rules]);
 
   const nextStep = () => setStep((s) => s + 1);
   const prevStep = () => setStep((s) => Math.max(0, s - 1));
@@ -318,7 +345,7 @@ export default function Home() {
 
                   <label className="flex items-start gap-4 text-sm cursor-pointer group bg-neutral-900/40 p-4 rounded-xl border border-transparent hover:border-white/5 transition-all">
                     <input type="checkbox" className="mt-1 flex-shrink-0 appearance-none w-5 h-5 border-2 border-neutral-600 rounded-md checked:bg-neutral-100 checked:border-neutral-100 transition-all cursor-pointer relative after:content-[''] after:absolute after:hidden checked:after:block after:left-[6px] after:top-[2px] after:w-1.5 after:h-2.5 after:border-black after:border-r-2 after:border-b-2 after:rotate-45" checked={rules.agreedTerms} onChange={(e) => setRules({ ...rules, agreedTerms: e.target.checked })} />
-                    <span className="text-neutral-400 group-hover:text-neutral-200 transition-colors leading-snug">I have read and agree to the <Link href="/legal/content-submission-agreement" className="text-neutral-200 hover:text-white underline underline-offset-2 font-medium" target="_blank">Content Agreement</Link> and <Link href="/legal/terms-of-service" className="text-neutral-200 hover:text-white underline underline-offset-2 font-medium" target="_blank">Terms</Link>.</span>
+                    <span className="text-neutral-400 group-hover:text-neutral-200 transition-colors leading-snug">I have read and agree to the <Link href="/legal/content-submission-agreement" className="text-neutral-200 hover:text-white underline underline-offset-2 font-medium">Content Agreement</Link> and <Link href="/legal/terms-of-service" className="text-neutral-200 hover:text-white underline underline-offset-2 font-medium">Terms</Link>.</span>
                   </label>
                 </div>
               </div>
@@ -347,18 +374,52 @@ export default function Home() {
           )}
 
           {step === 4 && (
-            <motion.div key="step4" variants={slideVariants} initial="initial" animate="animate" className="flex flex-col items-center text-center gap-6 w-full max-w-sm mx-auto flex-1 justify-center relative">
-              <div className="w-24 h-24 bg-neutral-900 border border-neutral-700/50 text-white rounded-[2rem] flex items-center justify-center mb-4 z-10 shadow-2xl">
-                <CheckCircle2 className="w-12 h-12 text-white/90" />
+            <motion.div key="step4" variants={slideVariants} initial="initial" animate="animate" className="flex flex-col items-center text-center gap-8 w-full max-w-sm mx-auto flex-1 justify-center relative">
+              {/* Success Icon */}
+              <div className="w-20 h-20 bg-neutral-900 border border-neutral-700/50 text-white rounded-full flex items-center justify-center z-10 shadow-2xl">
+                <CheckCircle2 className="w-10 h-10 text-white/90" />
               </div>
-              <div className="z-10 px-2 space-y-4">
-                <h2 className="text-4xl font-bold tracking-tight text-white/95">Clip Received!</h2>
-                <p className="text-neutral-400 text-lg leading-relaxed">
-                  We'll check it out and reach out to <strong className="text-white">@{creditedName || "you"}</strong> if it's selected. Thanks for contributing!
+
+              {/* Main Message */}
+              <div className="z-10 px-2 space-y-3">
+                <h2 className="text-4xl font-bold tracking-tight text-white">Clip Received!</h2>
+                <p className="text-neutral-400 text-base leading-relaxed">
+                  Thanks for submitting, <strong className="text-white">@{creditedName || "friend"}</strong>. We'll review your clip and reach out if it gets selected.
                 </p>
               </div>
+
+              {/* Submission Summary Card */}
+              <div className="w-full bg-neutral-900/60 border border-neutral-800 rounded-2xl p-5 text-left space-y-3 z-10">
+                <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest">Submission Summary</p>
+                <div className="space-y-2.5">
+                  <div className="flex justify-between items-start text-sm">
+                    <span className="text-neutral-500 font-medium">Credited Name</span>
+                    <span className="text-neutral-200 font-semibold text-right ml-4 truncate max-w-[180px]">@{creditedName || "Anonymous"}</span>
+                  </div>
+                  <div className="w-full h-px bg-neutral-800" />
+                  <div className="flex justify-between items-start text-sm">
+                    <span className="text-neutral-500 font-medium">Clip Link</span>
+                    <span className="text-neutral-200 font-semibold text-right ml-4 truncate max-w-[180px]">{clipLink}</span>
+                  </div>
+                  <div className="w-full h-px bg-neutral-800" />
+                  <div className="flex justify-between items-start text-sm">
+                    <span className="text-neutral-500 font-medium">On-Screen Credit</span>
+                    <span className="text-neutral-200 font-semibold">{wantsCredit ? "Yes" : "No"}</span>
+                  </div>
+                  <div className="w-full h-px bg-neutral-800" />
+                  <div className="flex justify-between items-start text-sm">
+                    <span className="text-neutral-500 font-medium">Clip Origin</span>
+                    <span className="text-neutral-200 font-semibold">{selfFilmed === true ? "Original" : selfFilmed === false ? "From Others" : "Not specified"}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Channels Reminder */}
+              <p className="text-xs text-neutral-500 z-10 leading-relaxed">Your clip may be featured on <strong className="text-neutral-300">@theclipman0154</strong>, <strong className="text-neutral-300">@opus.klips</strong>, or <strong className="text-neutral-300">@livestreaming.clips</strong></p>
+
               <button
                 onClick={() => {
+                  sessionStorage.removeItem("submitklips_form");
                   setClipLink("");
                   setDescription("");
                   setCreditedName("");
@@ -374,7 +435,7 @@ export default function Home() {
                   });
                   setStep(0);
                 }}
-                className="mt-8 px-8 py-4 bg-transparent border border-neutral-700/50 rounded-full text-base text-neutral-300 hover:text-white hover:bg-neutral-800/50 transition-all z-10 font-semibold"
+                className="mt-4 px-8 py-4 bg-transparent border border-neutral-700/50 rounded-full text-base text-neutral-300 hover:text-white hover:bg-neutral-800/50 transition-all z-10 font-semibold"
               >
                 Submit another clip
               </button>
