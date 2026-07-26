@@ -388,9 +388,9 @@ export default function Home() {
         <footer className="max-w-md mx-auto px-5 pb-10 flex flex-col items-center gap-5 text-sm text-neutral-500 relative z-10">
           <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-2" />
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 font-medium">
-            <Link href="/legal/content-submission-agreement" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Content Agreement</Link>
-            <Link href="/legal/terms-of-service" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link href="/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/legal/content-submission-agreement" className="hover:text-white transition-colors">Content Agreement</Link>
+            <Link href="/legal/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/legal/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
           </div>
           <p>Contact: <a href="mailto:submitklips@gmail.com" className="text-neutral-300 hover:text-white font-medium">submitklips@gmail.com</a></p>
         </footer>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import BackButton from '../BackButton';
 
 export const metadata = {
     title: 'Privacy Policy - SubmitKlips',
@@ -11,7 +11,7 @@ const legalStyles = "max-w-2xl mx-auto px-5 py-16 text-neutral-200 [&_h1]:text-3
 export default function PrivacyPolicy() {
     return (
         <div className={legalStyles}>
-            <Link href="/" className="text-neutral-400 hover:text-white font-medium pb-2 transition-all block mb-6">&larr; Return to SubmitKlips Form</Link>
+            <BackButton />
 
             <h1>Privacy Policy</h1>
             <p className="text-neutral-500 text-sm">Last updated: July 26, 2026</p>
