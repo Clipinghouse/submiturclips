@@ -101,14 +101,17 @@ export default function Home() {
       {/* Top Navigation / Branding */}
       <header className="fixed top-0 w-full z-50 bg-neutral-950/70 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-md mx-auto px-5 h-16 flex items-center justify-between">
-          <div className="relative w-32 h-8">
-            <Image
-              src="/submitclips.png"
-              alt="SubmitKlips Logo"
-              fill
-              className="object-contain object-left"
-              priority
-            />
+          <div className="flex items-center gap-3 relative">
+            <div className="relative w-8 h-8">
+              <Image
+                src="/submitclips.png"
+                alt="SubmitKlips Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <h1 className="font-bold text-xl tracking-tight text-white">SubmitKlips</h1>
           </div>
           {step > 0 && step < 4 && (
             <button onClick={prevStep} className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
