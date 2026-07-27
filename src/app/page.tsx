@@ -136,23 +136,17 @@ export default function Home() {
               {/* Enhanced Instagram Channels Showcase (Stories Style) */}
               <div className="flex flex-col items-center mt-2 w-full max-w-full">
                 <div className="flex overflow-x-auto gap-4 w-full py-4 px-2 snap-x snap-mandatory justify-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                  <a href="https://instagram.com/theclipman0154" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-center w-[90px]">
+                  <a href="https://instagram.com/richhub.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-center w-[90px]">
                     <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-neutral-700 ring-offset-4 ring-offset-neutral-950 group-hover:ring-neutral-400 transition-all duration-300 relative bg-neutral-900 border border-white/10">
-                      <Image src="/theoneman.png" alt="The One Man" fill sizes="64px" className="object-cover" />
+                      <Image src="/richhub.page.png" alt="Rich Hub" fill sizes="64px" className="object-cover" />
                     </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center mt-1 transition-colors">theclipman0154</span>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center mt-1 transition-colors">richhub.page</span>
                   </a>
-                  <a href="https://instagram.com/opus.klips" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-center w-[90px]">
+                  <a href="https://instagram.com/watchclips.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-center w-[90px]">
                     <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-neutral-700 ring-offset-4 ring-offset-neutral-950 group-hover:ring-neutral-400 transition-all duration-300 relative bg-neutral-900 border border-white/10">
-                      <Image src="/opusclips.png" alt="Opus Clips" fill sizes="64px" className="object-cover" />
+                      <Image src="/watchclips.page.png" alt="Watch Clips" fill sizes="64px" className="object-cover" />
                     </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center mt-1 transition-colors">opus.klips</span>
-                  </a>
-                  <a href="https://instagram.com/livestreaming.clips" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-center w-[90px]">
-                    <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-neutral-700 ring-offset-4 ring-offset-neutral-950 group-hover:ring-neutral-400 transition-all duration-300 relative bg-neutral-900 border border-white/10">
-                      <Image src="/livestreaming.png" alt="Live Streaming" fill sizes="64px" className="object-cover" />
-                    </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center mt-1 transition-colors">livestreaming.clips</span>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center mt-1 transition-colors">watchclips.page</span>
                   </a>
                 </div>
               </div>
@@ -426,7 +420,7 @@ export default function Home() {
               </div>
 
               {/* Channels Reminder */}
-              <p className="text-xs text-neutral-500 z-10 leading-relaxed">Your clip may be featured on <strong className="text-neutral-300">@theclipman0154</strong>, <strong className="text-neutral-300">@opus.klips</strong>, or <strong className="text-neutral-300">@livestreaming.clips</strong></p>
+              <p className="text-xs text-neutral-500 z-10 leading-relaxed">Your clip may be featured on <strong className="text-neutral-300">@richhub.page</strong> or <strong className="text-neutral-300">@watchclips.page</strong></p>
 
               <button
                 onClick={() => {
