@@ -135,18 +135,65 @@ export default function Home() {
             >
               {/* Enhanced Instagram Channels Showcase (Stories Style) */}
               <div className="flex flex-col items-center mt-2 w-full max-w-full">
-                <div className="flex overflow-x-auto gap-4 w-full py-4 px-2 snap-x snap-mandatory justify-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                  <a href="https://instagram.com/richhub.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-center w-[90px]">
-                    <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-neutral-700 ring-offset-4 ring-offset-neutral-950 group-hover:ring-neutral-400 transition-all duration-300 relative bg-neutral-900 border border-white/10">
-                      <Image src="/richhub.page.png" alt="Rich Hub" fill sizes="64px" className="object-cover" />
+                <div className="flex overflow-x-auto gap-3 w-full py-4 px-1 snap-x snap-mandatory scroll-smooth touch-pan-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                  {/* The One Man */}
+                  <a href="https://instagram.com/theclipman0154" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
+                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
+                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
+                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
+                          <Image src="/theoneman.png" alt="The One Man" fill sizes="64px" className="object-cover" />
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center mt-1 transition-colors">richhub.page</span>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">theclipman0154</span>
                   </a>
-                  <a href="https://instagram.com/watchclips.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-center w-[90px]">
-                    <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-neutral-700 ring-offset-4 ring-offset-neutral-950 group-hover:ring-neutral-400 transition-all duration-300 relative bg-neutral-900 border border-white/10">
-                      <Image src="/watchclips.page.png" alt="Watch Clips" fill sizes="64px" className="object-cover" />
+
+                  {/* Opus Clips */}
+                  <a href="https://instagram.com/opus.klips" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
+                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
+                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
+                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
+                          <Image src="/opusclips.png" alt="Opus Clips" fill sizes="64px" className="object-cover" />
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center mt-1 transition-colors">watchclips.page</span>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">opus.klips</span>
+                  </a>
+
+                  {/* Live Streaming */}
+                  <a href="https://instagram.com/livestreaming.clips" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
+                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
+                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
+                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
+                          <Image src="/livestreaming.png" alt="Live Streaming" fill sizes="64px" className="object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">livestreaming.clips</span>
+                  </a>
+
+                  {/* Rich Hub */}
+                  <a href="https://instagram.com/richhub.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
+                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
+                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
+                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
+                          <Image src="/richhub.page.png" alt="Rich Hub" fill sizes="64px" className="object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">richhub.page</span>
+                  </a>
+
+                  {/* Watch Clips */}
+                  <a href="https://instagram.com/watchclips.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
+                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
+                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
+                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
+                          <Image src="/watchclips.page.png" alt="Watch Clips" fill sizes="64px" className="object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">watchclips.page</span>
                   </a>
                 </div>
               </div>
@@ -420,7 +467,7 @@ export default function Home() {
               </div>
 
               {/* Channels Reminder */}
-              <p className="text-xs text-neutral-500 z-10 leading-relaxed">Your clip may be featured on <strong className="text-neutral-300">@richhub.page</strong> or <strong className="text-neutral-300">@watchclips.page</strong></p>
+              <p className="text-xs text-neutral-500 z-10 leading-relaxed">Your clip may be featured on <strong className="text-neutral-300">@theclipman0154</strong>, <strong className="text-neutral-300">@opus.klips</strong>, <strong className="text-neutral-300">@livestreaming.clips</strong>, <strong className="text-neutral-300">@richhub.page</strong>, or <strong className="text-neutral-300">@watchclips.page</strong></p>
 
               <button
                 onClick={() => {
