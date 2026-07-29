@@ -195,6 +195,55 @@ export default function Home() {
                     </div>
                     <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">watchclips.page</span>
                   </a>
+
+                  {/* TikTok Accounts */}
+                  {/* The One Man (TikTok) */}
+                  <a href="https://tiktok.com/@theclipman79" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
+                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-[#00f2fe] via-neutral-800 to-[#fe0979] transition-transform duration-300 group-hover:scale-105">
+                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
+                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
+                          <Image src="/theoneman.png" alt="The One Man TikTok" fill sizes="64px" className="object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">theclipman79</span>
+                  </a>
+
+                  {/* Live Streaming (TikTok) */}
+                  <a href="https://tiktok.com/@livestreaming.clips" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
+                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-[#00f2fe] via-neutral-800 to-[#fe0979] transition-transform duration-300 group-hover:scale-105">
+                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
+                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
+                          <Image src="/livestreaming.png" alt="Live Streaming TikTok" fill sizes="64px" className="object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">livestreaming.clips</span>
+                  </a>
+
+                  {/* Rich Hub (TikTok) */}
+                  <a href="https://tiktok.com/@richhub.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
+                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-[#00f2fe] via-neutral-800 to-[#fe0979] transition-transform duration-300 group-hover:scale-105">
+                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
+                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
+                          <Image src="/richhub.page.png" alt="Rich Hub TikTok" fill sizes="64px" className="object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">richhub.page</span>
+                  </a>
+
+                  {/* Watch Clips (TikTok) */}
+                  <a href="https://tiktok.com/@watchclips.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
+                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-[#00f2fe] via-neutral-800 to-[#fe0979] transition-transform duration-300 group-hover:scale-105">
+                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
+                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
+                          <Image src="/watchclips.page.png" alt="Watch Clips TikTok" fill sizes="64px" className="object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">watchclips.page</span>
+                  </a>
                 </div>
               </div>
 
