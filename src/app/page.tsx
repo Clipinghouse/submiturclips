@@ -137,7 +137,7 @@ export default function Home() {
               <div className="flex flex-col items-center mt-2 w-full max-w-full">
                 <div className="flex overflow-x-auto gap-3 w-full py-4 px-1 snap-x snap-mandatory scroll-smooth touch-pan-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                   {/* The One Man */}
-                  <a href="https://instagram.com/theclipman0154" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
+                  <a href="https://instagram.com/oneclipman.clips" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
                     <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
                       <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
                         <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
@@ -145,7 +145,7 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">theclipman0154</span>
+                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">oneclipman.clips</span>
                   </a>
 
                   {/* Opus Clips */}
@@ -158,91 +158,6 @@ export default function Home() {
                       </div>
                     </div>
                     <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">opus.klips</span>
-                  </a>
-
-                  {/* Live Streaming */}
-                  <a href="https://instagram.com/livestreaming.clips" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
-                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
-                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
-                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
-                          <Image src="/livestreaming.png" alt="Live Streaming" fill sizes="64px" className="object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">livestreaming.clips</span>
-                  </a>
-
-                  {/* Rich Hub */}
-                  <a href="https://instagram.com/richhub.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
-                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
-                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
-                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
-                          <Image src="/richhub.page.png" alt="Rich Hub" fill sizes="64px" className="object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">richhub.page</span>
-                  </a>
-
-                  {/* Watch Clips */}
-                  <a href="https://instagram.com/watchclips.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
-                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
-                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
-                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
-                          <Image src="/watchclips.page.png" alt="Watch Clips" fill sizes="64px" className="object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">watchclips.page</span>
-                  </a>
-
-                  {/* TikTok Accounts */}
-                  {/* The One Man (TikTok) */}
-                  <a href="https://tiktok.com/@theclipman79" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
-                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-[#00f2fe] via-neutral-800 to-[#fe0979] transition-transform duration-300 group-hover:scale-105">
-                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
-                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
-                          <Image src="/theoneman.png" alt="The One Man TikTok" fill sizes="64px" className="object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">theclipman79</span>
-                  </a>
-
-                  {/* Live Streaming (TikTok) */}
-                  <a href="https://tiktok.com/@livestreaming.clips" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
-                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-[#00f2fe] via-neutral-800 to-[#fe0979] transition-transform duration-300 group-hover:scale-105">
-                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
-                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
-                          <Image src="/livestreaming.png" alt="Live Streaming TikTok" fill sizes="64px" className="object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">livestreaming.clips</span>
-                  </a>
-
-                  {/* Rich Hub (TikTok) */}
-                  <a href="https://tiktok.com/@richhub.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
-                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-[#00f2fe] via-neutral-800 to-[#fe0979] transition-transform duration-300 group-hover:scale-105">
-                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
-                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
-                          <Image src="/richhub.page.png" alt="Rich Hub TikTok" fill sizes="64px" className="object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">richhub.page</span>
-                  </a>
-
-                  {/* Watch Clips (TikTok) */}
-                  <a href="https://tiktok.com/@watchclips.page" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
-                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-[#00f2fe] via-neutral-800 to-[#fe0979] transition-transform duration-300 group-hover:scale-105">
-                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
-                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
-                          <Image src="/watchclips.page.png" alt="Watch Clips TikTok" fill sizes="64px" className="object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">watchclips.page</span>
                   </a>
                 </div>
               </div>
@@ -516,7 +431,7 @@ export default function Home() {
               </div>
 
               {/* Channels Reminder */}
-              <p className="text-xs text-neutral-500 z-10 leading-relaxed">Your clip may be featured on <strong className="text-neutral-300">@theclipman0154</strong>, <strong className="text-neutral-300">@opus.klips</strong>, <strong className="text-neutral-300">@livestreaming.clips</strong>, <strong className="text-neutral-300">@richhub.page</strong>, or <strong className="text-neutral-300">@watchclips.page</strong></p>
+              <p className="text-xs text-neutral-500 z-10 leading-relaxed">Your clip may be featured on <strong className="text-neutral-300">@opus.klips</strong> or <strong className="text-neutral-300">@oneclipman.clips</strong></p>
 
               <button
                 onClick={() => {
