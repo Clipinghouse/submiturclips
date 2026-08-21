@@ -10,10 +10,10 @@ import Image from "next/image";
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <div className="min-h-screen bg-black text-white relative">
+    <div className="min-h-screen bg-black text-white relative overflow-x-hidden max-w-[100vw]">
 
       {/* 1st Viewport (Hero) */}
-      <main className="flex flex-col min-h-[75vh] px-4 pt-6 pb-12 relative overflow-visible z-0 w-full max-w-lg mx-auto">
+      <main className="flex flex-col min-h-[75vh] px-4 pt-6 pb-6 relative overflow-visible z-0 w-full max-w-lg mx-auto">
         {/* Deep Space Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-black to-black -z-10" />
 
