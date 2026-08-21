@@ -66,7 +66,7 @@ export default function Home() {
         </header>
 
         {/* Center 3D Carousel Section */}
-        <div className="relative w-full max-w-[320px] mx-auto flex justify-center items-center h-60 mt-4 z-10">
+        <div className="relative w-full max-w-[320px] mx-auto flex justify-center items-center h-60 mt-12 z-10">
 
           {/* Left Side: Dropbox Icon */}
           <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 z-30">
@@ -238,10 +238,10 @@ export default function Home() {
         <div className="max-w-md w-full flex flex-col items-center z-10 mt-6">
           <div className="flex items-center justify-center -space-x-4 mb-5">
             {[
-              { src: '/opusklips_new.png', platform: 'ig' },
-              { src: '/theoneman.png', platform: 'ig' }
+              { src: '/opusklips_new.png', platform: 'ig', url: 'https://instagram.com/opus.klips' },
+              { src: '/theoneman.png', platform: 'ig', url: 'https://instagram.com/theclipman1054' }
             ].map((channel, i) => (
-              <div key={i} className="rounded-full border-[3px] border-black relative z-10 bg-black shadow-lg" style={{ zIndex: 10 - i }}>
+              <a key={i} href={channel.url} target="_blank" rel="noopener noreferrer" className="rounded-full border-[3px] border-black relative z-10 bg-black shadow-lg block hover:scale-105 hover:z-50 transition-all cursor-pointer" style={{ zIndex: 10 - i }}>
                 <div className={`p-[2px] rounded-full ${channel.platform === 'ig' ? 'bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600' :
                   channel.platform === 'yt' ? 'bg-red-600' :
                     channel.platform === 'tiktok' ? 'bg-gradient-to-tr from-cyan-400 to-pink-500' : 'bg-zinc-700'
@@ -250,7 +250,7 @@ export default function Home() {
                     <Image src={channel.src} alt={`Channel ${i}`} fill className="object-cover" sizes="44px" />
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
 
