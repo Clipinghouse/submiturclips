@@ -1,477 +1,291 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import { useState } from "react";
+import { Menu, X, Play, Heart, MessageCircle, Send, MoreHorizontal, MoreVertical, Music, ThumbsUp, ThumbsDown, Share2, Bookmark, Plus, CloudUpload, Info, UploadCloud } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { UploadCloud, ChevronRight, CheckCircle2, AlertCircle, AlertTriangle, ShieldCheck, Video, FileText, Lock } from "lucide-react";
-import { createSubmission } from "./actions";
+import SubmissionForm from "@/components/SubmissionForm";
+import Image from "next/image";
 
 export default function Home() {
-  const [step, setStep] = useState(0);
-
-  // Form State
-  const [creditedName, setCreditedName] = useState("");
-  const [isAdult, setIsAdult] = useState<boolean | null>(null);
-  const [guardianName, setGuardianName] = useState("");
-
-  const [clipLink, setClipLink] = useState("");
-  const [description, setDescription] = useState("");
-  const [selfFilmed, setSelfFilmed] = useState<boolean | null>(null);
-  const [wantsCredit, setWantsCredit] = useState<boolean | null>(null);
-
-  const [rules, setRules] = useState({
-    noCopyright: false,
-    noGraphic: false,
-    noViolation: false,
-    agreedTerms: false,
-  });
-
-  const [botField, setBotField] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Persist form state to sessionStorage so navigating to legal pages doesn't lose data
-  useEffect(() => {
-    const saved = sessionStorage.getItem("submitklips_form");
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        setStep(data.step ?? 0);
-        setCreditedName(data.creditedName ?? "");
-        setIsAdult(data.isAdult ?? null);
-        setGuardianName(data.guardianName ?? "");
-        setClipLink(data.clipLink ?? "");
-        setDescription(data.description ?? "");
-        setSelfFilmed(data.selfFilmed ?? null);
-        setWantsCredit(data.wantsCredit ?? null);
-        setRules(data.rules ?? { noCopyright: false, noGraphic: false, noViolation: false, agreedTerms: false });
-      } catch { }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (step < 4) {
-      sessionStorage.setItem("submitklips_form", JSON.stringify({
-        step, creditedName, isAdult, guardianName, clipLink, description, selfFilmed, wantsCredit, rules
-      }));
-    }
-  }, [step, creditedName, isAdult, guardianName, clipLink, description, selfFilmed, wantsCredit, rules]);
-
-  const nextStep = () => setStep((s) => s + 1);
-  const prevStep = () => setStep((s) => Math.max(0, s - 1));
-
-  const submitForm = async () => {
-    if (botField.length > 0) {
-      // Honeypot trapped a bot! Silently act like it worked.
-      nextStep();
-      return;
-    }
-
-    setIsSubmitting(true);
-    const result = await createSubmission({
-      creditedName,
-      isAdult,
-      guardianName,
-      clipLink,
-      description,
-      selfFilmed,
-      wantsCredit
-    });
-    setIsSubmitting(false);
-    if (result.success) {
-      nextStep();
-    } else {
-      alert("Something went wrong, please try again.");
-    }
-  };
-
-  const isFormValid =
-    clipLink.length > 5 &&
-    wantsCredit !== null &&
-    Object.values(rules).every(Boolean);
-
-  const slideVariants = {
-    initial: { x: 20, opacity: 0, scale: 0.98 },
-    animate: { x: 0, opacity: 1, scale: 1 },
-    exit: { x: -20, opacity: 0, scale: 0.98 },
-  };
-
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-50 font-sans selection:bg-neutral-500/30 overflow-x-hidden">
-      {/* Top Navigation / Branding */}
-      <header className="fixed top-0 w-full z-50 bg-neutral-950/70 backdrop-blur-xl border-b border-white/10">
-        <div className="max-w-md mx-auto px-5 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3 relative">
-            <div className="relative w-8 h-8">
-              <Image
-                src="/submitclips.png"
-                alt="SubmitKlips Logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-            <h1 className="font-bold text-xl tracking-tight text-white">SubmitKlips</h1>
+    <div className="min-h-screen bg-black text-white relative">
+
+      {/* 1st Viewport (Hero) */}
+      <main className="flex flex-col min-h-[75vh] px-4 pt-6 pb-12 relative overflow-visible z-0 w-full max-w-lg mx-auto">
+        {/* Deep Space Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-black to-black -z-10" />
+
+        {/* Ambient Light Orbs for depth */}
+        <div className="absolute -top-20 -left-20 w-96 h-96 bg-lime-500/15 blur-[120px] pointer-events-none rounded-full -z-10" />
+        <div className="absolute top-[40%] -right-20 w-80 h-80 bg-white/5 blur-[100px] pointer-events-none rounded-full -z-10" />
+
+        {/* Header */}
+        <header className="flex justify-between items-center pb-3 border-b border-zinc-700/50 z-50 w-full relative">
+          <h1 className="text-lg font-poppins font-normal tracking-tight text-white leading-none z-50 relative">
+            Submitclips
+          </h1>
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="p-[5px] border border-zinc-400 rounded-md hover:bg-zinc-800 transition-colors flex items-center justify-center z-50 relative"
+          >
+            {menuOpen ? <X className="w-[18px] h-[18px] text-white" /> : <Menu className="w-[18px] h-[18px] text-white" />}
+          </button>
+
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-[48px] right-0 w-[240px] bg-zinc-950 border border-zinc-800 rounded-2xl p-5 flex flex-col gap-5 shadow-2xl z-40"
+              >
+                <div className="flex flex-col gap-3">
+                  <span className="text-lime-500/80 font-poppins font-semibold text-[10px] uppercase tracking-widest pl-1">Menu</span>
+                  <div className="flex flex-col gap-1">
+                    <a href="#" onClick={() => setMenuOpen(false)} className="font-poppins text-sm text-white hover:bg-zinc-900 rounded-lg px-3 py-2 transition-colors">Home</a>
+                    <a href="#submission-section" onClick={() => setMenuOpen(false)} className="font-poppins text-sm text-white hover:bg-zinc-900 rounded-lg px-3 py-2 transition-colors">Submit Clips</a>
+                  </div>
+                </div>
+
+                <div className="w-full h-[1px] bg-zinc-800/60"></div>
+
+                <div className="flex flex-col gap-3">
+                  <span className="text-lime-500/80 font-poppins font-semibold text-[10px] uppercase tracking-widest pl-1">Legal</span>
+                  <div className="flex flex-col gap-1">
+                    <a href="/legal/privacy-policy" onClick={() => setMenuOpen(false)} className="font-poppins text-sm text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-lg px-3 py-2 transition-colors">Privacy Policy</a>
+                    <a href="/legal/terms-of-service" onClick={() => setMenuOpen(false)} className="font-poppins text-sm text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-lg px-3 py-2 transition-colors">Terms of Service</a>
+                    <a href="/legal/cookie-policy" onClick={() => setMenuOpen(false)} className="font-poppins text-sm text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-lg px-3 py-2 transition-colors">Cookie Policy</a>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </header>
+
+        {/* Center 3D Carousel Section */}
+        <div className="relative w-full max-w-[320px] mx-auto flex justify-center items-center h-60 mt-4 z-10">
+
+          {/* Left Side: Dropbox Icon */}
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 z-30">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-white">
+              <path d="M6 3.5L12 7l-6 3.5L0 7l6-3.5zm12 0L24 7l-6 3.5-6-3.5 6-3.5zM0 14l6 3.5 6-3.5L6 10.5 0 14zm12 0l6 3.5 6-3.5-6-3.5-6 3.5zM6 18.5L12 22l6-3.5-6-3.5-6 3.5z" />
+            </svg>
+            <span className="font-poor-story text-xs text-white">Dropbox</span>
           </div>
-          {step > 0 && step < 4 && (
-            <button onClick={prevStep} className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
-              Back
-            </button>
-          )}
+
+          {/* Right Side: Drive Icon */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 z-30">
+            <Icon icon="mdi:google-drive" className="text-white text-xl" />
+            <span className="font-poor-story text-xs text-white">Drive</span>
+          </div>
+
+          {/* Left Card - Instagram */}
+          <div className="absolute w-32 h-44 bg-zinc-900 border-[1.5px] border-white rounded-xl transform -rotate-12 -translate-x-12 shadow-xl flex flex-col overflow-hidden">
+            <div className="absolute -top-5 w-full text-center">
+              <span className="text-[10px] font-poppins text-zinc-400">@Instagram</span>
+            </div>
+
+            {/* Mock Instagram Header */}
+            <div className="w-full flex items-center justify-between p-1.5 pt-2 relative z-10">
+              <div className="flex items-center gap-1">
+                <div className="w-3.5 h-3.5 rounded-full bg-white/20 border-[0.5px] border-lime-500"></div>
+                <div className="h-1 w-10 bg-white rounded-full"></div>
+              </div>
+              <MoreHorizontal className="w-3 h-3 text-white" />
+            </div>
+
+            <div className="flex-1"></div>
+
+            {/* Bottom Left Info */}
+            <div className="absolute bottom-2 left-2 flex flex-col gap-1.5 w-[70%] z-10">
+              <div className="flex items-center gap-1">
+                <div className="h-1.5 w-16 bg-white font-bold rounded-full"></div>
+                <div className="h-1.5 w-6 bg-transparent border border-white rounded-full"></div>
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <div className="h-1 w-full bg-white/70 rounded-full"></div>
+                <div className="h-1 w-10 bg-white/50 rounded-full"></div>
+              </div>
+            </div>
+
+            {/* Right Action Stack */}
+            <div className="absolute bottom-3 right-1.5 flex flex-col gap-2 items-center z-10">
+              <Heart className="w-4 h-4 text-white" />
+              <MessageCircle className="w-4 h-4 text-white" />
+              <Send className="w-4 h-4 text-white" />
+              <MoreVertical className="w-4 h-4 text-white" />
+            </div>
+          </div>
+
+          {/* Right Card - Tiktok */}
+          <div className="absolute w-32 h-44 bg-zinc-950 border border-zinc-600 rounded-xl transform rotate-12 translate-x-12 shadow-xl flex flex-col overflow-hidden">
+            <div className="absolute -top-5 w-full text-center">
+              <span className="text-[10px] font-poppins text-zinc-400">@Tiktok</span>
+            </div>
+
+            <div className="flex-1"></div>
+
+            {/* Bottom Left Info */}
+            <div className="absolute bottom-2 left-2 flex flex-col gap-1.5 z-10 w-[70%]">
+              <div className="h-1.5 w-14 bg-white rounded-full"></div>
+              <div className="flex flex-col gap-0.5">
+                <div className="h-1 w-full bg-white/70 rounded-full"></div>
+                <div className="h-1 w-16 bg-white/70 rounded-full"></div>
+              </div>
+              <div className="flex items-center gap-1 mt-0.5">
+                <Music className="w-2.5 h-2.5 text-white animate-pulse" />
+                <div className="h-1 w-12 bg-white rounded-full"></div>
+              </div>
+            </div>
+
+            {/* Right Action Stack */}
+            <div className="absolute bottom-3 right-1 flex flex-col gap-2.5 items-center z-10">
+              <div className="relative mb-0.5">
+                <div className="w-5 h-5 rounded-full bg-white/20 border-[1.5px] border-white"></div>
+                <div className="absolute -bottom-1 -left-0.5 bg-lime-500 rounded-full w-2.5 h-2.5 flex items-center justify-center translate-x-[7px] border border-black"><Plus className="w-1.5 h-1.5 text-black stroke-[4px]" /></div>
+              </div>
+              <Heart className="w-4 h-4 text-white fill-current" />
+              <MessageCircle className="w-4 h-4 text-white fill-current" />
+              <Bookmark className="w-3.5 h-3.5 text-white fill-current" />
+              <Share2 className="w-4 h-4 text-white fill-current" />
+
+              <div className="w-5 h-5 mt-1 rounded-full bg-zinc-800 border-[4px] border-black flex items-center justify-center animate-spin">
+                <div className="w-1.5 h-1.5 bg-lime-500 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Center Card - Youtube Shorts */}
+          <div className="absolute w-40 h-52 bg-lime-500 rounded-xl shadow-[0_20px_50px_rgba(132,204,22,0.3)] flex flex-col z-20 overflow-hidden border border-lime-400">
+            <div className="absolute -top-6 w-full text-center">
+              <span className="text-xs font-poppins font-medium text-white shadow-black drop-shadow-md">@Youtube Shorts</span>
+            </div>
+
+            {/* Top subtle UI */}
+            <div className="absolute top-2 left-0 w-full flex justify-between px-3 items-center z-10">
+              <div className="flex gap-1">
+                <div className="h-1 w-6 bg-black/40 rounded-full"></div>
+                <div className="h-1 w-6 bg-black/10 rounded-full"></div>
+              </div>
+              <MoreHorizontal className="w-4 h-4 text-black/60" />
+            </div>
+
+            <div className="flex-1 flex items-center justify-center relative">
+              {/* Play button */}
+              <div className="w-14 h-14 shrink-0 aspect-square rounded-full bg-white flex items-center justify-center shadow-xl cursor-pointer hover:scale-105 transition-transform z-20">
+                <Play className="w-6 h-6 text-black fill-black ml-0.5" />
+              </div>
+            </div>
+
+            {/* Bottom Left Info */}
+            <div className="absolute bottom-3 left-2.5 flex flex-col gap-2 z-10 w-[70%]">
+              <div className="flex items-center gap-1.5">
+                <div className="w-6 h-6 shrink-0 aspect-square rounded-full bg-white/20 border border-black/30"></div>
+                <div className="h-2 w-14 bg-black rounded-full"></div>
+                <div className="h-3 w-10 bg-white rounded-sm text-black flex items-center justify-center font-bold text-[5px] uppercase tracking-wider">Sub</div>
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="h-1.5 w-full bg-black/80 rounded-full"></div>
+                <div className="h-1.5 w-20 bg-black/80 rounded-full"></div>
+              </div>
+            </div>
+
+            {/* Right Action Stack */}
+            <div className="absolute bottom-4 right-2 flex flex-col gap-3.5 items-center z-10">
+              <div className="flex flex-col items-center gap-0.5">
+                <ThumbsUp className="w-4 h-4 text-black fill-current" />
+              </div>
+              <div className="flex flex-col items-center gap-0.5">
+                <ThumbsDown className="w-4 h-4 text-black fill-current" />
+              </div>
+              <div className="flex flex-col items-center gap-0.5">
+                <MessageCircle className="w-4 h-4 text-black fill-current" />
+              </div>
+              <div className="flex flex-col items-center gap-0.5">
+                <Share2 className="w-4 h-4 text-black fill-current" />
+              </div>
+            </div>
+          </div>
+
         </div>
-      </header>
 
-      <main className="max-w-md mx-auto pt-28 px-5 pb-16 min-h-screen flex flex-col relative">
-        <AnimatePresence mode="wait">
-          {step === 0 && (
-            <motion.div
-              key="step0"
-              variants={slideVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col gap-10"
-            >
-              {/* Enhanced Instagram Channels Showcase (Stories Style) */}
-              <div className="flex flex-col items-center mt-2 w-full max-w-full">
-                <div className="flex overflow-x-auto gap-3 w-full py-4 px-1 snap-x snap-mandatory scroll-smooth touch-pan-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                  {/* The One Man */}
-                  <a href="https://instagram.com/oneclipman.clips" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
-                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
-                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
-                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
-                          <Image src="/theoneman.png" alt="The One Man" fill sizes="64px" className="object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">oneclipman.clips</span>
-                  </a>
+        {/* Bottom Section */}
+        <div className="mt-4 flex flex-col items-center z-10 w-full text-center">
+          <div className="flex flex-col items-center font-poor-story leading-none text-2xl mb-2">
+            <span className="text-white tracking-wide whitespace-nowrap z-10">SUBMIT YOUR CLIPS</span>
+            <span className="text-3xl -mt-1 flex items-center justify-center z-0">
+              <span className="text-lime-500 mr-2">TO GET</span>
+              <span className="text-white tracking-wide">FEATURED<span className="text-lime-500 text-2xl align-top font-sans ml-[1px]">*</span></span>
+            </span>
+          </div>
 
-                  {/* Opus Clips */}
-                  <a href="https://instagram.com/opus.klips" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5 shrink-0 snap-start w-[76px]">
-                    <div className="w-[68px] h-[68px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 transition-transform duration-300 group-hover:scale-105">
-                      <div className="w-full h-full rounded-full bg-neutral-950 p-[2px]">
-                        <div className="w-full h-full rounded-full overflow-hidden relative bg-neutral-900">
-                          <Image src="/opusclips.png" alt="Opus Clips" fill sizes="64px" className="object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-neutral-400 group-hover:text-white font-medium tracking-wide w-full text-center truncate transition-colors px-1">opus.klips</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="bg-neutral-900/50 border border-white/10 rounded-[2rem] p-8 relative overflow-hidden backdrop-blur-md">
-                <h2 className="text-3xl font-semibold mb-3 tracking-tight font-display">Got a relatable clip?</h2>
-                <p className="text-neutral-400 mb-8 text-base leading-relaxed">
-                  Submit it and get featured on Patrick James's Instagram. We don't host files directly. Drop a link to your cloud storage below.
-                </p>
-
-                <div className="flex flex-col gap-3 relative z-10">
-                  <div className="flex items-center gap-4 text-sm text-neutral-300 bg-neutral-950 p-4 rounded-2xl border border-white/5">
-                    <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center shrink-0">
-                      <UploadCloud className="text-neutral-400 w-5 h-5" />
-                    </div>
-                    <span className="font-medium">Upload to Google Drive or Dropbox</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-sm text-neutral-300 bg-neutral-950 p-4 rounded-2xl border border-white/5">
-                    <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="text-neutral-400 w-5 h-5" />
-                    </div>
-                    <span className="font-medium">Set sharing to "Anyone with the link"</span>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                onClick={nextStep}
-                className="w-full bg-white text-neutral-950 font-bold py-5 rounded-[1.5rem] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 text-lg"
-              >
-                Start Submission
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </motion.div>
-          )}
-
-          {step === 1 && (
-            <motion.div key="step1" variants={slideVariants} initial="initial" animate="animate" exit="exit" className="flex flex-col gap-8 w-full max-w-sm mx-auto flex-1 justify-center relative">
-              <div>
-                <h2 className="text-4xl font-semibold mb-3 tracking-tight">Who gets the credit?</h2>
-                <p className="text-neutral-400 text-lg">Enter the name or Instagram handle you'd like us to feature.</p>
-              </div>
-              <div className="relative group">
-                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                  <span className="text-neutral-500 font-medium text-lg">@</span>
-                </div>
-                <input
-                  type="text"
-                  value={creditedName}
-                  onChange={(e) => setCreditedName(e.target.value)}
-                  placeholder="yourusername"
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-2xl pl-10 pr-5 py-5 text-lg font-medium text-white focus:outline-none focus:border-neutral-500 transition-all placeholder:font-normal placeholder:text-neutral-600"
-                  autoFocus
-                />
-              </div>
-              <button
-                onClick={nextStep}
-                className="w-full bg-white text-neutral-900 font-bold py-5 rounded-2xl active:scale-[0.98] transition-all"
-              >
-                Continue
-              </button>
-            </motion.div>
-          )}
-
-          {step === 2 && (
-            <motion.div key="step2" variants={slideVariants} initial="initial" animate="animate" exit="exit" className="flex flex-col gap-6 w-full max-w-sm mx-auto flex-1 justify-center">
-              <div>
-                <h2 className="text-4xl font-semibold mb-3 tracking-tight">Are you 18 or older?</h2>
-                <p className="text-neutral-400 text-lg">We need to check this for legal reasons.</p>
-              </div>
-              <div className="flex gap-4">
-                <button
-                  onClick={() => setIsAdult(true)}
-                  className={`flex-1 py-5 rounded-2xl border-2 ${isAdult === true ? 'bg-neutral-800 border-neutral-700 text-white' : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700'} font-semibold text-lg transition-all`}
-                >
-                  Yes
-                </button>
-                <button
-                  onClick={() => setIsAdult(false)}
-                  className={`flex-1 py-5 rounded-2xl border-2 ${isAdult === false ? 'bg-neutral-800 border-neutral-700 text-white' : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700'} font-semibold text-lg transition-all`}
-                >
-                  No
-                </button>
-              </div>
-
-              {isAdult === false && (
-                <div className="animate-in fade-in slide-in-from-top-4 flex flex-col gap-4 bg-neutral-900/50 border border-neutral-800 p-5 rounded-2xl mt-2">
-                  <div className="flex items-start gap-3">
-                    <ShieldCheck className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" />
-                    <p className="text-sm text-neutral-300 leading-relaxed font-medium">Since you're under 18, we need your parent or guardian's consent.</p>
-                  </div>
-                  <input
-                    type="text"
-                    value={guardianName}
-                    onChange={(e) => setGuardianName(e.target.value)}
-                    placeholder="Guardian's Full Legal Name"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-neutral-500 text-white placeholder:text-neutral-600"
-                  />
-                </div>
-              )}
-
-              <button
-                onClick={nextStep}
-                disabled={isAdult === null || (isAdult === false && guardianName.length < 3)}
-                className="w-full bg-white disabled:bg-neutral-800 disabled:text-neutral-500 text-neutral-950 font-bold py-5 rounded-2xl active:scale-[0.98] transition-all mt-4 hover:scale-[1.02]"
-              >
-                Continue
-              </button>
-            </motion.div>
-          )}
-
-          {step === 3 && (
-            <motion.div key="step3" variants={slideVariants} initial="initial" animate="animate" exit="exit" className="flex flex-col gap-8 w-full pb-12">
-              <div>
-                <h2 className="text-3xl font-semibold mb-2 tracking-tight">Final Details</h2>
-                <p className="text-neutral-400 text-base">Paste your link and confirm the rights.</p>
-              </div>
-
-              <div className="space-y-6">
-                {/* Warning Card */}
-                <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4 flex gap-3">
-                  <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-                  <p className="text-sm text-red-300 leading-relaxed">
-                    <strong className="text-red-400 font-semibold block mb-1">STRICT RULE: No Copyright Music</strong>
-                    Do NOT upload any clips containing copyrighted music, audio, or stolen content. All claims will result in immediate rejection.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-neutral-300 ml-1">
-                    <UploadCloud className="w-4 h-4 text-neutral-500" /> Cloud Share Link
-                  </label>
-                  <input
-                    type="url"
-                    value={clipLink}
-                    onChange={(e) => setClipLink(e.target.value)}
-                    placeholder="https://drive.google.com/..."
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-neutral-500 placeholder:text-neutral-600 transition-all"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-neutral-300 ml-1">
-                    <FileText className="w-4 h-4 text-neutral-500" /> Short Description <span className="text-neutral-600 font-normal">(Optional)</span>
-                  </label>
-                  <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="What's happening in this clip?"
-                    rows={2}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-neutral-500 placeholder:text-neutral-600 transition-all min-h-[80px]"
-                  />
-                </div>
-
-                <div className="space-y-2 border-t border-white/5 pt-6">
-                  <label className="flex gap-2 text-sm font-semibold text-neutral-300 ml-1 leading-tight">
-                    <Video className="w-4 h-4 text-neutral-500 shrink-0" />
-                    <span>Is it yours, or did you get it from others? <span className="text-neutral-600 font-normal">(Optional)</span></span>
-                  </label>
-                  <div className="flex gap-3">
-                    <button onClick={() => setSelfFilmed(true)} className={`flex-1 py-3 rounded-xl border-2 ${selfFilmed === true ? 'bg-neutral-800 border-neutral-700 text-white font-medium' : 'bg-neutral-900 border-neutral-800 text-neutral-400'} text-sm transition-all`}>My Original Clip</button>
-                    <button onClick={() => setSelfFilmed(false)} className={`flex-1 py-3 rounded-xl border-2 ${selfFilmed === false ? 'bg-neutral-800 border-neutral-700 text-white font-medium' : 'bg-neutral-900 border-neutral-800 text-neutral-400'} text-sm transition-all`}>From Others</button>
-                  </div>
-                  {selfFilmed === false && (
-                    <div className="mt-2 p-3.5 bg-neutral-900/50 border border-neutral-800 rounded-xl flex gap-3 text-xs text-neutral-400 leading-relaxed font-medium">
-                      <AlertCircle className="w-4 h-4 text-neutral-500 shrink-0 mt-0.5" />
-                      <p>If you're sharing another clip for fun, make sure you've added your own substantial edits and mentioned it in the description.</p>
-                    </div>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-neutral-300 ml-1">
-                    <CheckCircle2 className="w-4 h-4 text-neutral-500" /> Do you want on-screen credit?
-                  </label>
-                  <div className="flex gap-3">
-                    <button onClick={() => setWantsCredit(true)} className={`flex-1 py-3 rounded-xl border-2 ${wantsCredit === true ? 'bg-neutral-800 border-neutral-700 text-white font-medium' : 'bg-neutral-900 border-neutral-800 text-neutral-400'} text-sm transition-all`}>Yes, Please</button>
-                    <button onClick={() => setWantsCredit(false)} className={`flex-1 py-3 rounded-xl border-2 ${wantsCredit === false ? 'bg-neutral-800 border-neutral-700 text-white font-medium' : 'bg-neutral-900 border-neutral-800 text-neutral-400'} text-sm transition-all`}>No Credit needed</button>
-                  </div>
-                </div>
-
-                <div className="pt-8 border-t border-white/5 space-y-4">
-                  <label className="flex items-center gap-2 text-sm font-bold text-neutral-200 mb-1">
-                    <Lock className="w-4 h-4 text-neutral-500" /> Required Confirmations
-                  </label>
-
-                  <label className="flex items-start gap-4 text-sm cursor-pointer group bg-neutral-900/40 p-4 rounded-xl border border-transparent hover:border-white/5 transition-all">
-                    <input type="checkbox" className="mt-1 flex-shrink-0 appearance-none w-5 h-5 border-2 border-neutral-600 rounded-md checked:bg-neutral-100 checked:border-neutral-100 transition-all cursor-pointer relative after:content-[''] after:absolute after:hidden checked:after:block after:left-[6px] after:top-[2px] after:w-1.5 after:h-2.5 after:border-black after:border-r-2 after:border-b-2 after:rotate-45" checked={rules.noCopyright} onChange={(e) => setRules({ ...rules, noCopyright: e.target.checked })} />
-                    <span className="text-neutral-400 group-hover:text-neutral-200 transition-colors leading-snug">My clip does not contain copyrighted music, sound, or text overlays I don't have rights to use.</span>
-                  </label>
-
-                  <label className="flex items-start gap-4 text-sm cursor-pointer group bg-neutral-900/40 p-4 rounded-xl border border-transparent hover:border-white/5 transition-all">
-                    <input type="checkbox" className="mt-1 flex-shrink-0 appearance-none w-5 h-5 border-2 border-neutral-600 rounded-md checked:bg-neutral-100 checked:border-neutral-100 transition-all cursor-pointer relative after:content-[''] after:absolute after:hidden checked:after:block after:left-[6px] after:top-[2px] after:w-1.5 after:h-2.5 after:border-black after:border-r-2 after:border-b-2 after:rotate-45" checked={rules.noGraphic} onChange={(e) => setRules({ ...rules, noGraphic: e.target.checked })} />
-                    <span className="text-neutral-400 group-hover:text-neutral-200 transition-colors leading-snug">My clip does not contain graphic violence, nudity, or sexually explicit content.</span>
-                  </label>
-
-                  <label className="flex items-start gap-4 text-sm cursor-pointer group bg-neutral-900/40 p-4 rounded-xl border border-transparent hover:border-white/5 transition-all">
-                    <input type="checkbox" className="mt-1 flex-shrink-0 appearance-none w-5 h-5 border-2 border-neutral-600 rounded-md checked:bg-neutral-100 checked:border-neutral-100 transition-all cursor-pointer relative after:content-[''] after:absolute after:hidden checked:after:block after:left-[6px] after:top-[2px] after:w-1.5 after:h-2.5 after:border-black after:border-r-2 after:border-b-2 after:rotate-45" checked={rules.noViolation} onChange={(e) => setRules({ ...rules, noViolation: e.target.checked })} />
-                    <span className="text-neutral-400 group-hover:text-neutral-200 transition-colors leading-snug">My clip does not otherwise violate copyright law or anyone else's rights.</span>
-                  </label>
-
-                  <label className="flex items-start gap-4 text-sm cursor-pointer group bg-neutral-900/40 p-4 rounded-xl border border-transparent hover:border-white/5 transition-all">
-                    <input type="checkbox" className="mt-1 flex-shrink-0 appearance-none w-5 h-5 border-2 border-neutral-600 rounded-md checked:bg-neutral-100 checked:border-neutral-100 transition-all cursor-pointer relative after:content-[''] after:absolute after:hidden checked:after:block after:left-[6px] after:top-[2px] after:w-1.5 after:h-2.5 after:border-black after:border-r-2 after:border-b-2 after:rotate-45" checked={rules.agreedTerms} onChange={(e) => setRules({ ...rules, agreedTerms: e.target.checked })} />
-                    <span className="text-neutral-400 group-hover:text-neutral-200 transition-colors leading-snug">I have read and agree to the <Link href="/legal/content-submission-agreement" className="text-neutral-200 hover:text-white underline underline-offset-2 font-medium">Content Agreement</Link> and <Link href="/legal/terms-of-service" className="text-neutral-200 hover:text-white underline underline-offset-2 font-medium">Terms</Link>.</span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Anti-spam Honeypot Field (Hidden from real users) */}
-              <input
-                type="text"
-                name="website_url"
-                autoComplete="off"
-                tabIndex={-1}
-                aria-hidden="true"
-                className="opacity-0 absolute -z-10 w-0 h-0"
-                value={botField}
-                onChange={(e) => setBotField(e.target.value)}
-              />
-
-              <button
-                onClick={submitForm}
-                disabled={!isFormValid || isSubmitting || botField !== ""}
-                className="w-full mt-4 bg-white disabled:bg-neutral-800 disabled:text-neutral-500 text-neutral-950 font-bold py-5 rounded-2xl active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-              >
-                {isSubmitting ? "Submitting..." : "Submit Clip"}
-                {!isSubmitting && <ChevronRight className="w-5 h-5" />}
-              </button>
-            </motion.div>
-          )}
-
-          {step === 4 && (
-            <motion.div key="step4" variants={slideVariants} initial="initial" animate="animate" className="flex flex-col items-center text-center gap-8 w-full max-w-sm mx-auto flex-1 justify-center relative">
-              {/* Success Icon */}
-              <div className="w-20 h-20 bg-neutral-900 border border-neutral-700/50 text-white rounded-full flex items-center justify-center z-10 shadow-2xl">
-                <CheckCircle2 className="w-10 h-10 text-white/90" />
-              </div>
-
-              {/* Main Message */}
-              <div className="z-10 px-2 space-y-3">
-                <h2 className="text-4xl font-bold tracking-tight text-white">Clip Received!</h2>
-                <p className="text-neutral-400 text-base leading-relaxed">
-                  Thanks for submitting, <strong className="text-white">@{creditedName || "friend"}</strong>. We'll review your clip and reach out if it gets selected.
-                </p>
-              </div>
-
-              {/* Submission Summary Card */}
-              <div className="w-full bg-neutral-900/60 border border-neutral-800 rounded-2xl p-5 text-left space-y-3 z-10">
-                <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest">Submission Summary</p>
-                <div className="space-y-2.5">
-                  <div className="flex justify-between items-start text-sm">
-                    <span className="text-neutral-500 font-medium">Credited Name</span>
-                    <span className="text-neutral-200 font-semibold text-right ml-4 truncate max-w-[180px]">@{creditedName || "Anonymous"}</span>
-                  </div>
-                  <div className="w-full h-px bg-neutral-800" />
-                  <div className="flex justify-between items-start text-sm">
-                    <span className="text-neutral-500 font-medium">Clip Link</span>
-                    <span className="text-neutral-200 font-semibold text-right ml-4 truncate max-w-[180px]">{clipLink}</span>
-                  </div>
-                  <div className="w-full h-px bg-neutral-800" />
-                  <div className="flex justify-between items-start text-sm">
-                    <span className="text-neutral-500 font-medium">On-Screen Credit</span>
-                    <span className="text-neutral-200 font-semibold">{wantsCredit ? "Yes" : "No"}</span>
-                  </div>
-                  <div className="w-full h-px bg-neutral-800" />
-                  <div className="flex justify-between items-start text-sm">
-                    <span className="text-neutral-500 font-medium">Clip Origin</span>
-                    <span className="text-neutral-200 font-semibold">{selfFilmed === true ? "Original" : selfFilmed === false ? "From Others" : "Not specified"}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Channels Reminder */}
-              <p className="text-xs text-neutral-500 z-10 leading-relaxed">Your clip may be featured on <strong className="text-neutral-300">@opus.klips</strong> or <strong className="text-neutral-300">@oneclipman.clips</strong></p>
-
-              <button
-                onClick={() => {
-                  sessionStorage.removeItem("submitklips_form");
-                  setClipLink("");
-                  setDescription("");
-                  setCreditedName("");
-                  setGuardianName("");
-                  setIsAdult(null);
-                  setSelfFilmed(null);
-                  setWantsCredit(null);
-                  setRules({
-                    noCopyright: false,
-                    noGraphic: false,
-                    noViolation: false,
-                    agreedTerms: false,
-                  });
-                  setStep(0);
-                }}
-                className="mt-4 px-8 py-4 bg-transparent border border-neutral-700/50 rounded-full text-base text-neutral-300 hover:text-white hover:bg-neutral-800/50 transition-all z-10 font-semibold"
-              >
-                Submit another clip
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          <a href="#submission-section" className="mt-4 px-6 py-2.5 rounded-full border border-lime-500/30 bg-gradient-to-b from-lime-500/10 to-transparent hover:bg-lime-500/20 text-white font-poppins font-medium text-xs tracking-wide flex items-center justify-center gap-1.5 transition-all w-max mx-auto shadow-[0_0_15px_rgba(132,204,22,0.15)] cursor-pointer backdrop-blur-sm z-50">
+            Scroll Down <span className="text-[10px] animate-bounce">↓</span>
+          </a>
+        </div>
       </main>
 
-      {/* Footer */}
-      {step === 0 && (
-        <footer className="max-w-md mx-auto px-5 pb-10 flex flex-col items-center gap-5 text-sm text-neutral-500 relative z-10">
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-2" />
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 font-medium">
-            <Link href="/legal/content-submission-agreement" className="hover:text-white transition-colors">Content Agreement</Link>
-            <Link href="/legal/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link href="/legal/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+      {/* 2nd Viewport (Submission Engine) */}
+      <section id="submission-section" className="min-h-screen w-full bg-black flex flex-col items-center px-6 pt-4 pb-6 relative z-10 overflow-hidden">
+        {/* Deep Gradient Transition */}
+        <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-zinc-900/40 via-zinc-900/10 to-transparent -z-10 pointer-events-none"></div>
+        <div className="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-lime-500/20 to-transparent"></div>
+        <div className="absolute top-0 w-[500px] h-96 bg-lime-500/5 blur-[100px] pointer-events-none rounded-full -z-10"></div>
+
+        <div className="max-w-md w-full flex flex-col items-center z-10 mt-6">
+          <div className="flex items-center justify-center -space-x-4 mb-5">
+            {[
+              { src: '/opusklips_new.png', platform: 'ig' },
+              { src: '/theoneman.png', platform: 'ig' }
+            ].map((channel, i) => (
+              <div key={i} className="rounded-full border-[3px] border-black relative z-10 bg-black shadow-lg" style={{ zIndex: 10 - i }}>
+                <div className={`p-[2px] rounded-full ${channel.platform === 'ig' ? 'bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600' :
+                  channel.platform === 'yt' ? 'bg-red-600' :
+                    channel.platform === 'tiktok' ? 'bg-gradient-to-tr from-cyan-400 to-pink-500' : 'bg-zinc-700'
+                  }`}>
+                  <div className="w-11 h-11 rounded-full border-[2px] border-black bg-zinc-900 overflow-hidden relative">
+                    <Image src={channel.src} alt={`Channel ${i}`} fill className="object-cover" sizes="44px" />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <p>Contact: <a href="mailto:submitklips@gmail.com" className="text-neutral-300 hover:text-white font-medium">submitklips@gmail.com</a></p>
+
+          <h2 className="text-3xl font-poor-story tracking-wide mb-2 mt-2">DROP YOUR LINKS</h2>
+          <p className="text-zinc-400 text-sm font-poppins text-center mb-8 leading-relaxed">
+            Submit your raw clips and let<br />our editors do the rest.
+          </p>
+
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent mb-6"></div>
+
+          <SubmissionForm />
+        </div>
+
+        {/* Footer */}
+        <div className="w-full max-w-md mx-auto h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent my-8"></div>
+        <footer className="w-full flex flex-col gap-6 pb-8 z-10 font-poppins max-w-md mx-auto relative px-4">
+          <div className="flex flex-col gap-1 text-[13px] text-zinc-300">
+            <span className="text-lime-500 font-semibold mb-1">Legal</span>
+            <a href="/legal/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/legal/terms-of-service" className="hover:text-white transition-colors">Terms and Conditons</a>
+            <a href="/legal/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</a>
+          </div>
+
+          <div className="text-[12vw] sm:text-[48px] leading-none font-poor-story text-[#e2f0d9] tracking-wider font-bold mb-1">
+            SUBMITYOUR CLIPS
+          </div>
+
+          <div className="w-full h-[1px] bg-zinc-700 mb-1"></div>
+
+          <div className="flex justify-between items-center text-[10px] sm:text-xs text-zinc-400 w-full mb-4 font-poppins tracking-wide">
+            <span>Submit Your Clips © 2026</span>
+            <span>All Right Reserved</span>
+          </div>
         </footer>
-      )}
+      </section>
     </div>
   );
 }

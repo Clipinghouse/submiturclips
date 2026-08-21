@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Poor_Story, Anton } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const poorStory = Poor_Story({
+  variable: "--font-poor-story",
   subsets: ["latin"],
+  weight: "400",
+});
+
+const anton = Anton({
+  variable: "--font-anton",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +33,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${poppins.variable} ${poorStory.variable} ${anton.variable} h-full antialiased font-sans`}
+
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full bg-zinc-950 flex flex-col items-center">
+        <div className="w-full max-w-md min-h-screen bg-[var(--color-background)] border-x border-zinc-800 shadow-2xl flex flex-col">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
