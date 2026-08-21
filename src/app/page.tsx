@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Menu, X, Play, Heart, MessageCircle, Send, MoreHorizontal, MoreVertical, Music, ThumbsUp, ThumbsDown, Share2, Bookmark, Plus, CloudUpload, Info, UploadCloud } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,18 +9,16 @@ import Image from "next/image";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const submissionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (window.location.hash) {
-      history.replaceState(null, '', window.location.pathname);
-    }
-  }, []);
+  const scrollToSubmission = () => {
+    submissionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <div className="min-h-screen bg-black text-white relative overflow-x-hidden max-w-[100vw]">
 
       {/* 1st Viewport (Hero) */}
-      <main className="flex flex-col min-h-[75vh] px-4 pt-6 pb-6 relative overflow-visible z-0 w-full max-w-lg mx-auto">
+      <main className="flex flex-col min-h-[75vh] px-4 pt-6 pb-8 relative overflow-visible z-0 w-full max-w-lg mx-auto">
         {/* Deep Space Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-black to-black -z-10" />
 
@@ -53,7 +51,7 @@ export default function Home() {
                   <span className="text-lime-500/80 font-poppins font-semibold text-[10px] uppercase tracking-widest pl-1">Menu</span>
                   <div className="flex flex-col gap-1">
                     <a href="#" onClick={() => setMenuOpen(false)} className="font-poppins text-sm text-white hover:bg-zinc-900 rounded-lg px-3 py-2 transition-colors">Home</a>
-                    <a href="#submission-section" onClick={() => setMenuOpen(false)} className="font-poppins text-sm text-white hover:bg-zinc-900 rounded-lg px-3 py-2 transition-colors">Submit Clips</a>
+                    <button onClick={() => { setMenuOpen(false); scrollToSubmission(); }} className="font-poppins text-sm text-white hover:bg-zinc-900 rounded-lg px-3 py-2 transition-colors text-left">Submit Clips</button>
                   </div>
                 </div>
 
@@ -229,14 +227,14 @@ export default function Home() {
             </span>
           </div>
 
-          <a href="#submission-section" className="mt-4 px-6 py-2.5 rounded-full border border-lime-500/30 bg-gradient-to-b from-lime-500/10 to-transparent hover:bg-lime-500/20 text-white font-poppins font-medium text-xs tracking-wide flex items-center justify-center gap-1.5 transition-all w-max mx-auto shadow-[0_0_15px_rgba(132,204,22,0.15)] cursor-pointer backdrop-blur-sm z-50">
+          <button onClick={scrollToSubmission} className="mt-4 px-6 py-2.5 rounded-full border border-lime-500/30 bg-gradient-to-b from-lime-500/10 to-transparent hover:bg-lime-500/20 text-white font-poppins font-medium text-xs tracking-wide flex items-center justify-center gap-1.5 transition-all w-max mx-auto shadow-[0_0_15px_rgba(132,204,22,0.15)] cursor-pointer backdrop-blur-sm z-50">
             Scroll Down <span className="text-[10px] animate-bounce">↓</span>
-          </a>
+          </button>
         </div>
       </main>
 
       {/* 2nd Viewport (Submission Engine) */}
-      <section id="submission-section" className="min-h-screen w-full bg-black flex flex-col items-center px-6 pt-4 pb-6 relative z-10 overflow-hidden">
+      <section ref={submissionRef} className="min-h-screen w-full bg-black flex flex-col items-center px-6 pt-4 pb-6 relative z-10 overflow-hidden">
         {/* Deep Gradient Transition */}
         <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-zinc-900/40 via-zinc-900/10 to-transparent -z-10 pointer-events-none"></div>
         <div className="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-lime-500/20 to-transparent"></div>

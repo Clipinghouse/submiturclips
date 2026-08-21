@@ -139,7 +139,6 @@ export default function SubmissionForm() {
                                 onChange={(e) => setCreditedName(e.target.value)}
                                 placeholder="yourusername"
                                 className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl pl-9 pr-4 py-3.5 text-sm font-medium text-white focus:outline-none focus:border-lime-500 transition-all placeholder:font-normal placeholder:text-zinc-600 shadow-inner"
-                                autoFocus
                             />
                         </div>
                         <button
