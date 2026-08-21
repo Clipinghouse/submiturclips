@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Poor_Story, Anton } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -34,8 +35,13 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${poppins.variable} ${poorStory.variable} ${anton.variable} h-full antialiased font-sans`}
-
     >
+      <head>
+        <Script id="scroll-top" strategy="beforeInteractive">{`
+          if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+          window.scrollTo(0, 0);
+        `}</Script>
+      </head>
       <body className="min-h-full bg-zinc-950 flex flex-col items-center">
         <div className="w-full max-w-md min-h-screen bg-[var(--color-background)] border-x border-zinc-800 shadow-2xl flex flex-col">
           {children}

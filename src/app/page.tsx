@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Play, Heart, MessageCircle, Send, MoreHorizontal, MoreVertical, Music, ThumbsUp, ThumbsDown, Share2, Bookmark, Plus, CloudUpload, Info, UploadCloud } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +9,13 @@ import Image from "next/image";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname);
+    }
+  }, []);
   return (
     <div className="min-h-screen bg-black text-white relative overflow-x-hidden max-w-[100vw]">
 
@@ -66,7 +73,7 @@ export default function Home() {
         </header>
 
         {/* Center 3D Carousel Section */}
-        <div className="relative w-full max-w-[320px] mx-auto flex justify-center items-center h-60 mt-12 z-10">
+        <div className="relative w-full max-w-[320px] mx-auto flex justify-center items-center h-60 mt-10 z-10">
 
           {/* Left Side: Dropbox Icon */}
           <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 z-30">
