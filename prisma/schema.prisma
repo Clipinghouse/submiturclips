@@ -13,6 +13,7 @@ datasource db {
 model Submission {
   id                  String   @id @default(uuid())
   creditedName        String
+  email               String
   ageGateStatus       String   // "adult" or "guardian-consented"
   guardianName        String?  // required if under 18
   clipLink            String

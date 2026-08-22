@@ -10,6 +10,7 @@ const prisma = new PrismaClient({ adapter });
 
 export async function createSubmission(data: {
     creditedName: string;
+    email: string;
     isAdult: boolean | null;
     guardianName: string;
     clipLink: string;
@@ -21,6 +22,7 @@ export async function createSubmission(data: {
         const submission = await prisma.submission.create({
             data: {
                 creditedName: data.creditedName || "Anonymous",
+                email: data.email,
                 ageGateStatus: data.isAdult ? "adult" : "guardian-consented",
                 guardianName: data.guardianName || null,
                 clipLink: data.clipLink,

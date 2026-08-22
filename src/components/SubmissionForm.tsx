@@ -10,6 +10,7 @@ export default function SubmissionForm() {
 
     // Form State
     const [creditedName, setCreditedName] = useState("");
+    const [email, setEmail] = useState("");
     const [isAdult, setIsAdult] = useState<boolean | null>(null);
     const [guardianName, setGuardianName] = useState("");
 
@@ -36,6 +37,7 @@ export default function SubmissionForm() {
                 const data = JSON.parse(saved);
                 setStep(data.step ?? 1);
                 setCreditedName(data.creditedName ?? "");
+                setEmail(data.email ?? "");
                 setIsAdult(data.isAdult ?? null);
                 setGuardianName(data.guardianName ?? "");
                 setClipLink(data.clipLink ?? "");
@@ -50,10 +52,10 @@ export default function SubmissionForm() {
     useEffect(() => {
         if (step < 4) {
             sessionStorage.setItem("submitklips_form_new", JSON.stringify({
-                step, creditedName, isAdult, guardianName, clipLink, description, selfFilmed, wantsCredit, rules
+                step, creditedName, email, isAdult, guardianName, clipLink, description, selfFilmed, wantsCredit, rules
             }));
         }
-    }, [step, creditedName, isAdult, guardianName, clipLink, description, selfFilmed, wantsCredit, rules]);
+    }, [step, creditedName, email, isAdult, guardianName, clipLink, description, selfFilmed, wantsCredit, rules]);
 
     const nextStep = () => setStep((s) => s + 1);
     const prevStep = () => setStep((s) => Math.max(1, s - 1));
@@ -67,6 +69,7 @@ export default function SubmissionForm() {
         setIsSubmitting(true);
         const result = await createSubmission({
             creditedName,
+            email,
             isAdult,
             guardianName,
             clipLink,
@@ -141,9 +144,24 @@ export default function SubmissionForm() {
                                 className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl pl-9 pr-4 py-3.5 text-sm font-medium text-white focus:outline-none focus:border-lime-500 transition-all placeholder:font-normal placeholder:text-zinc-600 shadow-inner"
                             />
                         </div>
+                        <div className="relative group mt-1">
+                            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                                <svg className="w-4 h-4 text-lime-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="your@email.com"
+                                className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl pl-9 pr-4 py-3.5 text-sm font-medium text-white focus:outline-none focus:border-lime-500 transition-all placeholder:font-normal placeholder:text-zinc-600 shadow-inner"
+                            />
+                        </div>
                         <button
                             onClick={nextStep}
-                            className="w-full mt-4 bg-lime-500 text-black font-poor-story tracking-wider text-lg py-3 rounded-xl hover:scale-[1.02] hover:bg-lime-400 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(132,204,22,0.3)]"
+                            disabled={!email || !/\S+@\S+\.\S+/.test(email)}
+                            className="w-full mt-4 bg-lime-500 text-black font-poor-story tracking-wider text-lg py-3 rounded-xl hover:scale-[1.02] hover:bg-lime-400 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(132,204,22,0.3)] disabled:opacity-40 disabled:pointer-events-none"
                         >
                             CONTINUE
                             <ChevronRight className="w-5 h-5 text-black" />
