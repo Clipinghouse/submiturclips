@@ -29,33 +29,48 @@ export default function SubmissionForm() {
     const [botField, setBotField] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Persist form state
+    // Hydrate form state
     useEffect(() => {
-        const saved = sessionStorage.getItem("submitklips_form_new");
-        if (saved) {
+        const idSaved = localStorage.getItem("submitklips_identity");
+        if (idSaved) {
             try {
-                const data = JSON.parse(saved);
-                setStep(data.step ?? 1);
-                setCreditedName(data.creditedName ?? "");
-                setEmail(data.email ?? "");
-                setIsAdult(data.isAdult ?? null);
-                setGuardianName(data.guardianName ?? "");
-                setClipLink(data.clipLink ?? "");
-                setDescription(data.description ?? "");
-                setSelfFilmed(data.selfFilmed ?? null);
-                setWantsCredit(data.wantsCredit ?? null);
-                setRules(data.rules ?? { noCopyright: false, noGraphic: false, noViolation: false, agreedTerms: false });
+                const idData = JSON.parse(idSaved);
+                if (idData.creditedName) setCreditedName(idData.creditedName);
+                if (idData.email) setEmail(idData.email);
+                if (idData.isAdult !== undefined) setIsAdult(idData.isAdult);
+                if (idData.guardianName) setGuardianName(idData.guardianName);
+            } catch { }
+        }
+
+        const draftSaved = sessionStorage.getItem("submitklips_draft_v2");
+        if (draftSaved) {
+            try {
+                const draft = JSON.parse(draftSaved);
+                setStep(draft.step ?? 1);
+                setClipLink(draft.clipLink ?? "");
+                setDescription(draft.description ?? "");
+                setSelfFilmed(draft.selfFilmed ?? null);
+                setWantsCredit(draft.wantsCredit ?? null);
+                setRules(draft.rules ?? { noCopyright: false, noGraphic: false, noViolation: false, agreedTerms: false });
             } catch { }
         }
     }, []);
 
+    // Persist Identity (localStorage)
+    useEffect(() => {
+        localStorage.setItem("submitklips_identity", JSON.stringify({
+            creditedName, email, isAdult, guardianName
+        }));
+    }, [creditedName, email, isAdult, guardianName]);
+
+    // Persist Draft (sessionStorage)
     useEffect(() => {
         if (step < 4) {
-            sessionStorage.setItem("submitklips_form_new", JSON.stringify({
-                step, creditedName, email, isAdult, guardianName, clipLink, description, selfFilmed, wantsCredit, rules
+            sessionStorage.setItem("submitklips_draft_v2", JSON.stringify({
+                step, clipLink, description, selfFilmed, wantsCredit, rules
             }));
         }
-    }, [step, creditedName, email, isAdult, guardianName, clipLink, description, selfFilmed, wantsCredit, rules]);
+    }, [step, clipLink, description, selfFilmed, wantsCredit, rules]);
 
     const nextStep = () => setStep((s) => s + 1);
     const prevStep = () => setStep((s) => Math.max(1, s - 1));
@@ -79,6 +94,12 @@ export default function SubmissionForm() {
         });
         setIsSubmitting(false);
         if (result.success) {
+            sessionStorage.removeItem("submitklips_draft_v2");
+            setClipLink("");
+            setDescription("");
+            setSelfFilmed(null);
+            setWantsCredit(null);
+            setRules({ noCopyright: false, noGraphic: false, noViolation: false, agreedTerms: false });
             nextStep();
         } else {
             alert("Something went wrong, please try again.");
