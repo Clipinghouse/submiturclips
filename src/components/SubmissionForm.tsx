@@ -87,6 +87,8 @@ export default function SubmissionForm() {
 
     const isFormValid =
         clipLink.length > 5 &&
+        email?.length > 3 &&
+        /\S+@\S+\.\S+/.test(email) &&
         wantsCredit !== null &&
         selfFilmed !== null &&
         Object.values(rules).every(Boolean);
@@ -144,24 +146,9 @@ export default function SubmissionForm() {
                                 className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl pl-9 pr-4 py-3.5 text-sm font-medium text-white focus:outline-none focus:border-lime-500 transition-all placeholder:font-normal placeholder:text-zinc-600 shadow-inner"
                             />
                         </div>
-                        <div className="relative group mt-1">
-                            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                                <svg className="w-4 h-4 text-lime-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="your@email.com"
-                                className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl pl-9 pr-4 py-3.5 text-sm font-medium text-white focus:outline-none focus:border-lime-500 transition-all placeholder:font-normal placeholder:text-zinc-600 shadow-inner"
-                            />
-                        </div>
                         <button
                             onClick={nextStep}
-                            disabled={!email || !/\S+@\S+\.\S+/.test(email)}
-                            className="w-full mt-4 bg-lime-500 text-black font-poor-story tracking-wider text-lg py-3 rounded-xl hover:scale-[1.02] hover:bg-lime-400 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(132,204,22,0.3)] disabled:opacity-40 disabled:pointer-events-none"
+                            className="w-full mt-4 bg-lime-500 text-black font-poor-story tracking-wider text-lg py-3 rounded-xl hover:scale-[1.02] hover:bg-lime-400 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(132,204,22,0.3)]"
                         >
                             CONTINUE
                             <ChevronRight className="w-5 h-5 text-black" />
@@ -231,6 +218,19 @@ export default function SubmissionForm() {
                                     <strong className="text-red-400 font-bold block mb-1">STRICT RULE: No Copyright Music</strong>
                                     Do NOT upload any clips containing copyrighted music, audio, or stolen content. All claims will result in immediate rejection.
                                 </p>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="flex items-center gap-2 text-xs font-poppins font-semibold uppercase tracking-wider text-zinc-300 ml-1">
+                                    <div className="w-4 h-4 text-lime-500 flex items-center justify-center">@</div> Email Address
+                                </label>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="your@email.com"
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3.5 text-sm font-poppins focus:outline-none focus:border-lime-500 placeholder:text-zinc-600 transition-all text-white shadow-inner"
+                                />
                             </div>
 
                             <div className="space-y-2">
