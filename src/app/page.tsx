@@ -74,19 +74,20 @@ export default function Home() {
         {/* Center 3D Carousel Section */}
         <div className="relative w-full max-w-[320px] mx-auto flex justify-center items-center h-60 mt-10 z-10">
 
-          {/* Left Side: Dropbox Icon */}
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 z-30">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-white">
+          {/* Floating Dropbox (Left Card) */}
+          <div className="absolute -top-1 left-[32px] flex flex-col items-center gap-0.5 z-30 transform -rotate-12 hover:-translate-y-1 transition-transform">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-white opacity-90 drop-shadow-lg">
               <path d="M6 3.5L12 7l-6 3.5L0 7l6-3.5zm12 0L24 7l-6 3.5-6-3.5 6-3.5zM0 14l6 3.5 6-3.5L6 10.5 0 14zm12 0l6 3.5 6-3.5-6-3.5-6 3.5zM6 18.5L12 22l6-3.5-6-3.5-6 3.5z" />
             </svg>
-            <span className="font-poor-story text-xs text-white">Dropbox</span>
+            <span className="font-poppins font-medium text-[9px] text-zinc-300 drop-shadow-md">Dropbox</span>
           </div>
 
-          {/* Right Side: Drive Icon */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 z-30">
-            <Icon icon="mdi:google-drive" className="text-white text-xl" />
-            <span className="font-poor-story text-xs text-white">Drive</span>
+          {/* Floating Drive (Right Card) */}
+          <div className="absolute -top-0.5 right-9 flex flex-col items-center gap-0.5 z-30 transform rotate-12 hover:-translate-y-1 transition-transform">
+            <Icon icon="mdi:google-drive" className="text-white text-[18px] opacity-90 drop-shadow-lg" />
+            <span className="font-poppins font-medium text-[9px] text-zinc-300 drop-shadow-md">Drive</span>
           </div>
+
 
           {/* Left Card - Instagram */}
           <div className="absolute w-32 h-44 bg-zinc-900 border-[1.5px] border-white rounded-xl transform -rotate-12 -translate-x-12 shadow-xl flex flex-col overflow-hidden">
@@ -242,7 +243,7 @@ export default function Home() {
         <div className="absolute top-0 w-[500px] h-96 bg-lime-500/5 blur-[100px] pointer-events-none rounded-full -z-10"></div>
 
         <div className="max-w-md w-full flex flex-col items-center z-10 mt-6">
-          <div className="flex items-center justify-center -space-x-4 mb-5">
+          <div className="flex items-center justify-center -space-x-4 mt-7 mb-5">
             {[
               { src: '/opusklips_new.png', platform: 'ig', url: 'https://instagram.com/opus.klips' },
               { src: '/theoneman.png', platform: 'ig', url: 'https://instagram.com/theclipman1054' }
@@ -261,7 +262,7 @@ export default function Home() {
           </div>
 
           <h2 className="text-3xl font-poor-story tracking-wide mb-2 mt-2">DROP YOUR LINKS</h2>
-          <p className="text-zinc-400 text-sm font-poppins text-center mb-8 leading-relaxed">
+          <p className="text-zinc-400 text-sm font-poppins text-center mb-1 leading-relaxed">
             Submit your raw clips and let<br />our editors do the rest.
           </p>
 
