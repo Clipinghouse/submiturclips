@@ -242,8 +242,8 @@ export default function Home() {
         <div className="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-lime-500/20 to-transparent"></div>
         <div className="absolute top-0 w-[500px] h-96 bg-lime-500/5 blur-[100px] pointer-events-none rounded-full -z-10"></div>
 
-        <div className="max-w-md w-full flex flex-col items-center z-10 mt-6">
-          <div className="flex items-center justify-center -space-x-4 mt-1 mb-10">
+        <div className="max-w-md w-full flex flex-col items-center z-10 mt-2">
+          <div className="flex items-center justify-center -space-x-4 mt-4 mb-6">
             {[
               { src: '/opusklips_new.png', platform: 'ig', url: 'https://instagram.com/opus.klips' },
               { src: '/theoneman.png', platform: 'ig', url: 'https://instagram.com/theclipman1054' }
@@ -262,8 +262,8 @@ export default function Home() {
           </div>
 
           <h2 className="text-3xl font-poor-story tracking-wide mb-2 mt-2">DROP YOUR LINKS</h2>
-          <p className="text-zinc-400 text-sm font-poppins text-center -mb-4 leading-relaxed">
-            Submit your raw clips and let<br />our editors do the rest.
+          <p className="text-zinc-400 text-sm font-poppins text-center mb-6 leading-relaxed w-[95%] mx-auto">
+            Submit your clips here and let us handle the rest. You will get notified through email if your clip is selected.
           </p>
 
           <div className="w-full h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent mb-6"></div>
