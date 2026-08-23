@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Menu, X, Play, Heart, MessageCircle, Send, MoreHorizontal, MoreVertical, Music, ThumbsUp, ThumbsDown, Share2, Bookmark, Plus, CloudUpload, Info, UploadCloud } from "lucide-react";
+import { Menu, X, Play, Pause, Heart, MessageCircle, Send, MoreHorizontal, MoreVertical, Music, ThumbsUp, ThumbsDown, Share2, Bookmark, Plus, CloudUpload, Info, UploadCloud } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import SubmissionForm from "@/components/SubmissionForm";
@@ -75,7 +75,7 @@ export default function Home() {
         <div className="relative w-full max-w-[320px] mx-auto flex justify-center items-center h-60 mt-10 z-10">
 
           {/* Floating Dropbox (Left Card) */}
-          <div className="absolute -top-1 left-[32px] flex flex-col items-center gap-0.5 z-30 transform -rotate-12 hover:-translate-y-1 transition-transform">
+          <div className="absolute -top-1 left-[27px] flex flex-col items-center gap-0.5 z-30 transform -rotate-12 hover:-translate-y-1 transition-transform">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-white opacity-90 drop-shadow-lg">
               <path d="M6 3.5L12 7l-6 3.5L0 7l6-3.5zm12 0L24 7l-6 3.5-6-3.5 6-3.5zM0 14l6 3.5 6-3.5L6 10.5 0 14zm12 0l6 3.5 6-3.5-6-3.5-6 3.5zM6 18.5L12 22l6-3.5-6-3.5-6 3.5z" />
             </svg>
@@ -182,8 +182,8 @@ export default function Home() {
 
             <div className="flex-1 flex items-center justify-center relative">
               {/* Play button */}
-              <div className="w-14 h-14 shrink-0 aspect-square rounded-full bg-white flex items-center justify-center shadow-xl cursor-pointer hover:scale-105 transition-transform z-20">
-                <Play className="w-6 h-6 text-black fill-black ml-0.5" />
+              <div className="w-10 h-10 shrink-0 aspect-square rounded-full bg-white flex items-center justify-center shadow-xl cursor-pointer hover:scale-105 transition-transform z-20">
+                <Play className="w-4 h-4 text-black fill-black ml-0.5" />
               </div>
             </div>
 
@@ -243,7 +243,7 @@ export default function Home() {
         <div className="absolute top-0 w-[500px] h-96 bg-lime-500/5 blur-[100px] pointer-events-none rounded-full -z-10"></div>
 
         <div className="max-w-md w-full flex flex-col items-center z-10 mt-6">
-          <div className="flex items-center justify-center -space-x-4 mt-7 mb-5">
+          <div className="flex items-center justify-center -space-x-4 mt-12 mb-5">
             {[
               { src: '/opusklips_new.png', platform: 'ig', url: 'https://instagram.com/opus.klips' },
               { src: '/theoneman.png', platform: 'ig', url: 'https://instagram.com/theclipman1054' }
@@ -262,7 +262,7 @@ export default function Home() {
           </div>
 
           <h2 className="text-3xl font-poor-story tracking-wide mb-2 mt-2">DROP YOUR LINKS</h2>
-          <p className="text-zinc-400 text-sm font-poppins text-center mb-1 leading-relaxed">
+          <p className="text-zinc-400 text-sm font-poppins text-center -mb-4 leading-relaxed">
             Submit your raw clips and let<br />our editors do the rest.
           </p>
 
