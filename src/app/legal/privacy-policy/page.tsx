@@ -6,8 +6,8 @@ export const metadata = {
 };
 
 const legalStyles = "max-w-2xl mx-auto px-5 py-16 text-zinc-300 font-poppins " +
-    "[&_h1]:text-4xl [&_h1]:font-anton [&_h1]:tracking-wide [&_h1]:text-white [&_h1]:mb-2 " +
-    "[&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-lime-500 [&_h2]:mt-10 [&_h2]:mb-3 " +
+    "[&_h1]:text-4xl [&_h1]:font-bold [&_h1]:tracking-wide [&_h1]:text-white [&_h1]:mb-2 " +
+    "[&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-zinc-100 [&_h2]:mt-10 [&_h2]:mb-3 " +
     "[&_p]:leading-relaxed [&_p]:mb-4 [&_p]:text-sm " +
     "[&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_ul]:mb-4 [&_li]:text-sm [&_li]:leading-relaxed [&_strong]:text-white";
 
@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
     return (
         <div className="min-h-screen bg-black">
             <div className={legalStyles}>
-                <a href="/" className="text-lime-500 text-sm hover:underline mb-8 inline-block font-semibold">← Back Home</a>
+                <a href="/" className="text-zinc-400 text-sm hover:text-white hover:underline mb-8 inline-block font-semibold">← Back Home</a>
 
                 <h1>Privacy Policy</h1>
                 <p className="text-zinc-500 text-sm mb-8">Last updated: August 2026</p>
