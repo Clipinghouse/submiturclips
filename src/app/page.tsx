@@ -5,6 +5,7 @@ import { Menu, X, Play, Heart, MessageCircle, Send, MoreHorizontal, MoreVertical
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import SubmissionForm from "@/components/SubmissionForm";
+import { resetCookieConsent } from "@/components/CookieConsent";
 import Image from "next/image";
 
 export default function Home() {
@@ -277,6 +278,12 @@ export default function Home() {
             <a href="/legal/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="/legal/terms-of-service" className="hover:text-white transition-colors">Terms and Conditons</a>
             <a href="/legal/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</a>
+            <button
+              onClick={resetCookieConsent}
+              className="text-left hover:text-white transition-colors cursor-pointer"
+            >
+              Cookie Settings
+            </button>
           </div>
 
           <div className="text-[12vw] sm:text-[48px] leading-none font-poor-story text-[#e2f0d9] tracking-wider font-bold mb-1">

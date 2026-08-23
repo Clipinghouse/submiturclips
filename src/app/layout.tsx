@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins, Poor_Story, Anton } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
+import CookieConsent from "@/components/CookieConsent";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -36,21 +37,9 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${poorStory.variable} ${anton.variable} h-full antialiased font-sans`}
     >
-      <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-M48QV3DHZ2"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-M48QV3DHZ2');
-          `}
-        </Script>
-      </head>
       <body className="min-h-full bg-zinc-950 flex flex-col items-center">
+        <GoogleAnalytics />
+        <CookieConsent />
         <div className="w-full max-w-md min-h-screen bg-[var(--color-background)] border-x border-zinc-800 shadow-2xl flex flex-col">
           {children}
         </div>
