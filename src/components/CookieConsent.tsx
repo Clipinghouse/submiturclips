@@ -70,31 +70,34 @@ export default function CookieConsent() {
     if (!isClient) return null;
 
     return (
-        <div className="pointer-events-none fixed inset-0 z-[9999] flex justify-center w-full h-full">
-            <div className="w-full max-w-md h-full relative pointer-events-none">
+        <>
+            {/* Floating Chat-head */}
+            {!showBanner && !showPanel && (
+                <div className="pointer-events-none fixed bottom-6 inset-x-0 z-[9990] flex justify-center">
+                    <div className="w-full max-w-md relative">
+                        <button
+                            onClick={() => setShowPanel(true)}
+                            className="pointer-events-auto absolute bottom-0 left-6 w-12 h-12 bg-[#0c0c0c] text-white rounded-full flex items-center justify-center shadow-2xl border border-zinc-800 hover:scale-105 transition-transform"
+                            aria-label="Cookie Settings"
+                        >
+                            <Cookie className="w-5 h-5" />
+                        </button>
+                    </div>
+                </div>
+            )}
 
-                {/* Floating Chat-head */}
-                {!showBanner && !showPanel && (
-                    <button
-                        onClick={() => setShowPanel(true)}
-                        className="absolute bottom-6 left-6 pointer-events-auto z-[9990] w-12 h-12 bg-[#0c0c0c] text-white rounded-full flex items-center justify-center shadow-2xl border border-zinc-800 hover:scale-105 transition-transform"
-                        aria-label="Cookie Settings"
-                    >
-                        <Cookie className="w-5 h-5" />
-                    </button>
-                )}
+            {/* Overlay */}
+            {showPanel && (
+                <div
+                    className="fixed inset-0 bg-black/60 pointer-events-auto z-[9995] backdrop-blur-sm"
+                    onClick={() => setShowPanel(false)}
+                />
+            )}
 
-                {/* Overlay */}
-                {showPanel && (
-                    <div
-                        className="absolute inset-0 bg-black/60 pointer-events-auto z-[9995] backdrop-blur-sm"
-                        onClick={() => setShowPanel(false)}
-                    />
-                )}
-
-                {/* Initial Banner */}
-                {showBanner && !showPanel && (
-                    <div className="absolute bottom-4 left-4 right-4 pointer-events-auto z-[9999]">
+            {/* Initial Banner */}
+            {showBanner && !showPanel && (
+                <div className="pointer-events-none fixed bottom-4 inset-x-0 z-[9999] flex justify-center">
+                    <div className="w-full max-w-md px-4 pointer-events-auto text-left">
                         <div className="w-full bg-[#0c0c0c] border border-zinc-900 rounded-2xl p-5 shadow-2xl">
                             <div className="flex items-start gap-4 mb-5">
                                 <Cookie className="w-6 h-6 text-white shrink-0 mt-0.5" />
@@ -121,11 +124,13 @@ export default function CookieConsent() {
                             </div>
                         </div>
                     </div>
-                )}
+                </div>
+            )}
 
-                {/* Configurable Settings Panel */}
-                {showPanel && (
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[92%] sm:w-[350px] max-h-[85vh] pointer-events-auto z-[9999] bg-[#0c0c0c] border border-zinc-900 rounded-xl overflow-hidden shadow-2xl font-poppins flex flex-col">
+            {/* Configurable Settings Panel */}
+            {showPanel && (
+                <div className="pointer-events-none fixed inset-0 z-[9999] flex justify-center items-center">
+                    <div className="pointer-events-auto w-[92%] sm:w-[350px] max-h-[85vh] bg-[#0c0c0c] border border-zinc-900 rounded-xl overflow-hidden shadow-2xl font-poppins flex flex-col">
                         <div className="flex justify-between items-center px-5 py-4 border-b border-zinc-900 shrink-0">
                             <h2 className="text-white text-[14px] font-bold tracking-wide">Cookie settings</h2>
                             <button onClick={() => setShowPanel(false)} className="text-zinc-500 hover:text-white transition-colors">
@@ -198,8 +203,8 @@ export default function CookieConsent() {
                             </button>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
 
             <style jsx global>{`
                 .custom-scrollbar::-webkit-scrollbar {
@@ -213,6 +218,6 @@ export default function CookieConsent() {
                     border-radius: 10px;
                 }
             `}</style>
-        </div>
+        </>
     );
 }
