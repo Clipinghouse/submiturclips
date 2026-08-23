@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Cookie, Lock, BarChart, Save } from "lucide-react";
 
 const STORAGE_KEY = "cookie_consent";
 const FUNCTIONAL_KEY = "cookie_functional";
@@ -76,7 +77,7 @@ function CategoryRow({
     disabled,
     toggleId,
 }: {
-    icon: string;
+    icon: React.ReactNode;
     title: string;
     description: string;
     badge: { label: string; color: string };
@@ -86,16 +87,16 @@ function CategoryRow({
     toggleId: string;
 }) {
     return (
-        <div className="flex items-start justify-between gap-4 py-4 border-b border-zinc-800 last:border-0">
-            <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                    <span className="text-base leading-none">{icon}</span>
-                    <span className="text-white text-xs font-semibold">{title}</span>
-                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider ${badge.color}`}>
+        <div className="flex items-start justify-between gap-3 py-4 border-b border-zinc-800 last:border-0">
+            <div className="flex-1 min-w-0 pr-2">
+                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                    <span className="text-base leading-none text-white shrink-0">{icon}</span>
+                    <span className="text-white text-sm font-semibold leading-none">{title}</span>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider whitespace-nowrap ${badge.color}`}>
                         {badge.label}
                     </span>
                 </div>
-                <p className="text-zinc-400 text-[11px] leading-relaxed">{description}</p>
+                <p className="text-zinc-400 text-xs leading-relaxed">{description}</p>
             </div>
             <div className="shrink-0 pt-1">
                 <Toggle id={toggleId} checked={checked} onChange={onChange} disabled={disabled} />
@@ -154,48 +155,48 @@ export default function CookieConsent() {
                 role="dialog"
                 aria-label="Cookie preferences"
             >
-                <div className="w-full max-w-md pointer-events-auto mx-auto">
+                <div className="w-full max-w-md pointer-events-auto mx-auto w-full">
 
                     {/* ── Settings Panel (expanded) ── */}
                     {showSettings && (
-                        <div className="mx-3 mb-2 rounded-2xl border border-zinc-800 bg-zinc-950 shadow-2xl overflow-hidden">
-                            <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
+                        <div className="mx-3 mb-3 rounded-2xl border border-zinc-800 bg-zinc-950 shadow-[0_-10px_40px_rgba(0,0,0,0.8)] overflow-hidden">
+                            <div className="p-4 border-b border-zinc-800 flex items-center justify-between bg-zinc-900/30">
                                 <div className="flex items-center gap-2">
-                                    <span className="text-base">🍪</span>
-                                    <h3 className="text-white text-sm font-semibold font-poppins">Cookie Settings</h3>
+                                    <Cookie className="w-5 h-5 text-white" />
+                                    <h3 className="text-white text-sm font-semibold font-poppins leading-none pt-0.5">Cookie Settings</h3>
                                 </div>
                                 <a
                                     href="/legal/cookie-policy"
-                                    className="text-[10px] text-lime-500 hover:text-lime-400 transition-colors font-poppins"
+                                    className="text-xs text-lime-500 hover:text-lime-400 transition-colors font-poppins font-medium"
                                 >
-                                    Cookie Policy ↗
+                                    Read Policy ↗
                                 </a>
                             </div>
 
-                            <div className="px-5 font-poppins">
+                            <div className="px-5 font-poppins max-h-[60vh] overflow-y-auto">
                                 <CategoryRow
-                                    icon="🔒"
+                                    icon={<Lock className="w-4 h-4 text-white" />}
                                     title="Essential"
-                                    description="Stores your cookie preference so we don't ask every visit. Required for the site to work."
+                                    description="Required to remember if you closed this banner."
                                     badge={{ label: "Always On", color: "bg-zinc-700 text-zinc-300" }}
                                     checked={true}
                                     disabled={true}
                                     toggleId="toggle-essential"
                                 />
                                 <CategoryRow
-                                    icon="📊"
-                                    title="Analytics (Google Analytics)"
-                                    description="Helps us understand how visitors use the site — page views, session duration, and similar aggregate data. Required to operate this site."
-                                    badge={{ label: "Required", color: "bg-lime-500/20 text-lime-400" }}
+                                    icon={<BarChart className="w-4 h-4 text-white" />}
+                                    title="Analytics"
+                                    description="Google Analytics. Helps us count visits and see which pages are popular. Required to operate the site."
+                                    badge={{ label: "Required", color: "bg-lime-500 text-black" }}
                                     checked={true}
                                     disabled={true}
                                     toggleId="toggle-analytics"
                                 />
                                 <CategoryRow
-                                    icon="⚙️"
-                                    title="Functional"
-                                    description="Saves your partial form entries so you don't lose progress if you navigate away. Optional — disabling won't break the site."
-                                    badge={{ label: "Optional", color: "bg-zinc-700 text-zinc-400" }}
+                                    icon={<Save className="w-4 h-4 text-white" />}
+                                    title="Form Progress"
+                                    description="Saves your typed form entries so you don't lose them if you reload the page."
+                                    badge={{ label: "Optional", color: "bg-zinc-700 text-zinc-300" }}
                                     checked={functional}
                                     onChange={setFunctional}
                                     disabled={false}
@@ -203,18 +204,18 @@ export default function CookieConsent() {
                                 />
                             </div>
 
-                            <div className="p-4 flex gap-2">
+                            <div className="p-4 flex gap-3 border-t border-zinc-800 bg-zinc-900/30">
                                 <button
                                     id="cookie-save-btn"
                                     onClick={saveAndClose}
-                                    className="flex-1 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-zinc-300 text-xs font-medium hover:bg-zinc-800 hover:text-white transition-all cursor-pointer font-poppins"
+                                    className="flex-1 py-3 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-xs font-semibold hover:bg-zinc-800 transition-all cursor-pointer font-poppins"
                                 >
-                                    Save Preferences
+                                    Save
                                 </button>
                                 <button
                                     id="cookie-accept-all-btn"
                                     onClick={acceptAll}
-                                    className="flex-1 py-2.5 rounded-xl border border-lime-500/30 bg-lime-500 text-black text-xs font-semibold hover:bg-lime-400 transition-all cursor-pointer shadow-[0_0_15px_rgba(132,204,22,0.2)] font-poppins"
+                                    className="flex-1 py-3 rounded-xl border border-lime-500/30 bg-lime-500 text-black text-xs font-bold hover:bg-lime-400 transition-all cursor-pointer shadow-[0_0_15px_rgba(132,204,22,0.2)] font-poppins"
                                 >
                                     Accept All
                                 </button>
@@ -225,12 +226,12 @@ export default function CookieConsent() {
                     {/* ── Banner (compact) ── */}
                     {!showSettings && (
                         <div className="m-3 rounded-2xl border border-zinc-800 bg-zinc-950/95 backdrop-blur-xl shadow-[0_-8px_30px_rgba(0,0,0,0.5)] p-4 font-poppins">
-                            <div className="flex items-start gap-3 mb-3">
-                                <span className="text-lg leading-none mt-0.5">🍪</span>
+                            <div className="flex items-start gap-3 mb-4">
+                                <Cookie className="w-6 h-6 text-white shrink-0" />
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-white text-xs font-semibold mb-0.5">We use cookies</h3>
-                                    <p className="text-zinc-400 text-[11px] leading-relaxed">
-                                        For site functionality and analytics (Google Analytics).{" "}
+                                    <h3 className="text-white text-sm font-semibold mb-1">Our Site Uses Cookies</h3>
+                                    <p className="text-zinc-400 text-xs leading-relaxed">
+                                        We use storage to keep the site running and use analytics to understand traffic.{" "}
                                         <a href="/legal/cookie-policy" className="text-lime-500 underline underline-offset-2 hover:text-lime-400 transition-colors">
                                             Learn more
                                         </a>
@@ -242,14 +243,14 @@ export default function CookieConsent() {
                                 <button
                                     id="cookie-settings-btn"
                                     onClick={() => setShowSettings(true)}
-                                    className="flex-1 py-2 px-3 rounded-xl border border-zinc-700 bg-zinc-900 text-zinc-300 text-[11px] font-medium hover:bg-zinc-800 hover:text-white transition-all cursor-pointer"
+                                    className="flex-1 py-2.5 px-3 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-xs font-semibold hover:bg-zinc-800 transition-all cursor-pointer"
                                 >
-                                    Cookie Settings
+                                    Privacy Settings
                                 </button>
                                 <button
                                     id="cookie-accept-btn"
                                     onClick={acceptAll}
-                                    className="flex-1 py-2 px-3 rounded-xl border border-lime-500/30 bg-lime-500 text-black text-[11px] font-semibold hover:bg-lime-400 transition-all cursor-pointer shadow-[0_0_12px_rgba(132,204,22,0.2)]"
+                                    className="flex-1 py-2.5 px-3 rounded-xl border border-lime-500/30 bg-lime-500 text-black text-xs font-bold hover:bg-lime-400 transition-all cursor-pointer shadow-[0_0_12px_rgba(132,204,22,0.2)]"
                                 >
                                     Accept All
                                 </button>
