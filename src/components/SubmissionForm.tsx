@@ -233,9 +233,9 @@ export default function SubmissionForm() {
 
                         <div className="space-y-6">
                             {/* Warning Card */}
-                            <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex gap-3">
+                            <div className="bg-black border border-red-500/30 rounded-xl p-4 flex gap-3">
                                 <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-                                <p className="text-sm text-red-300 leading-relaxed font-poppins">
+                                <p className="text-sm text-white leading-relaxed font-poppins">
                                     <strong className="text-red-400 font-bold block mb-1">STRICT RULE: No Copyright Music</strong>
                                     Do NOT upload any clips containing copyrighted music, audio, or stolen content. All claims will result in immediate rejection.
                                 </p>
@@ -330,7 +330,7 @@ export default function SubmissionForm() {
                                 <label className="flex items-start gap-4 text-sm cursor-pointer group bg-zinc-900/50 p-4 rounded-xl border border-transparent hover:border-zinc-800 transition-all font-poppins">
                                     <input type="checkbox" className="mt-1 w-4 h-4 rounded border-zinc-700 text-lime-500 focus:ring-lime-500 bg-zinc-950 accent-lime-500 shrink-0 cursor-pointer" checked={rules.agreedTerms} onChange={(e) => setRules({ ...rules, agreedTerms: e.target.checked })} />
                                     <span className="text-zinc-400 group-hover:text-zinc-200 transition-colors leading-snug">
-                                        I have read and agree to the <a href="/legal/content-submission-agreement" target="_blank" className="text-lime-500 hover:underline">Content Agreement</a> and <a href="/legal/terms-of-service" target="_blank" className="text-lime-500 hover:underline">Terms of Service</a>.
+                                        I have read and agree to the <a href="/legal/content-submission-agreement" className="text-lime-500 hover:underline">Content Agreement</a> and <a href="/legal/terms-of-service" className="text-lime-500 hover:underline">Terms of Service</a>.
                                     </span>
                                 </label>
                             </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import LegalBackButton from '@/components/LegalBackButton';
 
 export const metadata = {
     title: 'Content Submission Agreement - Submitclips',
@@ -15,7 +16,7 @@ export default function ContentSubmissionAgreement() {
     return (
         <div className="min-h-screen bg-black">
             <div className={legalStyles}>
-                <a href="/" className="text-zinc-400 text-sm hover:text-white hover:underline mb-8 inline-block font-semibold">← Back Home</a>
+                <LegalBackButton />
 
                 <h1>Content Submission Agreement</h1>
                 <p className="text-zinc-500 text-sm mb-8">Last updated: August 2026</p>

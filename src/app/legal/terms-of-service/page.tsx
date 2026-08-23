@@ -1,4 +1,5 @@
 import React from 'react';
+import LegalBackButton from '@/components/LegalBackButton';
 
 export const metadata = {
     title: 'Terms of Service - Submitclips',
@@ -15,7 +16,7 @@ export default function TermsOfService() {
     return (
         <div className="min-h-screen bg-black">
             <div className={legalStyles}>
-                <a href="/" className="text-zinc-400 hover:text-white text-sm hover:underline mb-8 inline-block font-semibold">← Back Home</a>
+                <LegalBackButton />
 
                 <h1>Terms of Service</h1>
                 <p className="text-zinc-500 text-sm mb-8">Last updated: August 2026</p>
