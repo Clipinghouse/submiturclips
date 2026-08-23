@@ -19,7 +19,7 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white relative overflow-x-hidden max-w-[100vw]">
 
       {/* 1st Viewport (Hero) */}
-      <main className="flex flex-col min-h-[75vh] px-4 pt-6 pb-8 relative overflow-visible z-0 w-full max-w-lg mx-auto">
+      <main className="flex flex-col min-h-[75vh] px-4 pt-6 pb-5 relative overflow-visible z-0 w-full max-w-lg mx-auto">
         {/* Deep Space Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-black to-black -z-10" />
 
@@ -243,7 +243,7 @@ export default function Home() {
         <div className="absolute top-0 w-[500px] h-96 bg-lime-500/5 blur-[100px] pointer-events-none rounded-full -z-10"></div>
 
         <div className="max-w-md w-full flex flex-col items-center z-10 mt-6">
-          <div className="flex items-center justify-center -space-x-4 mt-12 mb-5">
+          <div className="flex items-center justify-center -space-x-4 mt-1 mb-10">
             {[
               { src: '/opusklips_new.png', platform: 'ig', url: 'https://instagram.com/opus.klips' },
               { src: '/theoneman.png', platform: 'ig', url: 'https://instagram.com/theclipman1054' }
