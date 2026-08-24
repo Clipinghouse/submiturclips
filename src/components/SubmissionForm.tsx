@@ -123,7 +123,7 @@ export default function SubmissionForm() {
             setRules({ noCopyright: false, noGraphic: false, noViolation: false, agreedTerms: false });
             nextStep();
         } else {
-            alert("Something went wrong, please try again.");
+            alert(`Error: ${(result as any).details || result.error}`);
         }
     };
 

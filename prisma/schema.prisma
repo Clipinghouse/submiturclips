@@ -14,7 +14,7 @@ model Submission {
   id                  String   @id @default(uuid())
   creditedName        String
   email               String
-  ageGateStatus       Boolean  // Instead of string, true since only adults allowed
+  ageGateStatus       String  // Kept as String to avoid data wiping, stores "true" or "false"
   clipLink            String
   description         String?
   selfFilmed          Boolean

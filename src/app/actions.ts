@@ -23,7 +23,7 @@ export async function createSubmission(data: {
             data: {
                 creditedName: data.creditedName || "Anonymous",
                 email: data.email,
-                ageGateStatus: data.isAdult ?? false,
+                ageGateStatus: data.isAdult ? "true" : "false",
                 clipLink: data.clipLink,
                 description: data.description || null,
                 selfFilmed: data.selfFilmed ?? false,
@@ -33,8 +33,8 @@ export async function createSubmission(data: {
             },
         });
         return { success: true, id: submission.id };
-    } catch (error) {
+    } catch (error: any) {
         console.error("Submission Error:", error);
-        return { success: false, error: "Failed to submit clip." };
+        return { success: false, error: "Failed to submit clip.", details: String(error?.message || error) };
     }
 }
