@@ -14,12 +14,12 @@ model Submission {
   id                  String   @id @default(uuid())
   creditedName        String
   email               String
-  ageGateStatus       String   // "adult" or "guardian-consented"
-  guardianName        String?  // required if under 18
+  ageGateStatus       Boolean  // Instead of string, true since only adults allowed
   clipLink            String
   description         String?
   selfFilmed          Boolean
-  wantsCredit         Boolean
+  isEdited            Boolean?
   ruleAcknowledgments Boolean
+  sourceChannel       String?  // The UTM/source channel tracked from URL
   createdAt           DateTime @default(now())
 }

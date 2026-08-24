@@ -12,23 +12,23 @@ export async function createSubmission(data: {
     creditedName: string;
     email: string;
     isAdult: boolean | null;
-    guardianName: string;
     clipLink: string;
     description: string;
     selfFilmed: boolean | null;
-    wantsCredit: boolean | null;
+    isEdited: boolean | null;
+    sourceChannel: string | null;
 }) {
     try {
         const submission = await prisma.submission.create({
             data: {
                 creditedName: data.creditedName || "Anonymous",
                 email: data.email,
-                ageGateStatus: data.isAdult ? "adult" : "guardian-consented",
-                guardianName: data.guardianName || null,
+                ageGateStatus: data.isAdult ?? false,
                 clipLink: data.clipLink,
                 description: data.description || null,
                 selfFilmed: data.selfFilmed ?? false,
-                wantsCredit: data.wantsCredit ?? false,
+                isEdited: data.isEdited,
+                sourceChannel: data.sourceChannel,
                 ruleAcknowledgments: true,
             },
         });
