@@ -271,7 +271,7 @@ export default function Home() {
         <div className="max-w-md w-full flex flex-col items-center z-10 mt-2">
           <div className="flex items-center justify-center -space-x-4 mt-4 mb-6">
             {[
-              { src: '/opusklips_new.png', platform: 'ig', url: 'https://instagram.com/opus.klips' },
+              { src: '/opusklips.png', platform: 'ig', url: 'https://instagram.com/opus.klips' },
               { src: '/theclipman0154.png', platform: 'ig', url: 'https://instagram.com/theclipman0154' }
             ].map((channel, i) => (
               <a key={i} href={channel.url} target="_blank" rel="noopener noreferrer" className="rounded-full border-[3px] border-black relative z-10 bg-black shadow-lg block hover:scale-105 hover:z-50 transition-all cursor-pointer" style={{ zIndex: 10 - i }}>
