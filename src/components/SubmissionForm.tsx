@@ -286,7 +286,7 @@ export default function SubmissionForm() {
                                     const srcLower = sourceChannel.toLowerCase();
                                     const imgSource =
                                         srcLower.includes("opus") || srcLower.includes("klips") ? "/opusklips_new.png" :
-                                            srcLower.includes("clipman") || srcLower.includes("oneman") ? "/theoneman.png" :
+                                            srcLower.includes("clipman") || srcLower.includes("oneman") ? "/theclipman0154.png" :
                                                 null;
 
                                     if (imgSource) {
