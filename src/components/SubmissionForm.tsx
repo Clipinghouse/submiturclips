@@ -87,7 +87,7 @@ export default function SubmissionForm() {
             setStep((s) => s + 1);
         }
     };
-    
+
     const prevStep = () => {
         if (step === 5 && selfFilmed === true) {
             setStep(3);
@@ -169,8 +169,8 @@ export default function SubmissionForm() {
                 {step === 1 && (
                     <motion.div key="step1" variants={slideVariants} initial="initial" animate="animate" exit="exit" className="flex flex-col gap-6 w-full max-w-sm mx-auto mt-6">
                         <div>
-                            <h2 className="text-2xl font-poor-story tracking-wide mb-2 text-white uppercase">What is your Instagram Handle?</h2>
-                            <p className="text-zinc-400 font-poppins text-sm leading-relaxed">Enter the handle of the account submitting the video.</p>
+                            <h2 className="text-2xl font-poor-story tracking-wide mb-2 text-white uppercase">What is your IG Username?</h2>
+                            <p className="text-zinc-400 font-poppins text-sm leading-relaxed">Enter your personal Instagram username so we can credit you.</p>
                         </div>
                         <div className="relative group mt-4">
                             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
@@ -240,12 +240,12 @@ export default function SubmissionForm() {
                         <div>
                             <h2 className="text-2xl font-poor-story tracking-wide mb-1 text-white">DID YOU FILM THIS CLIP?</h2>
                         </div>
-                        
+
                         <div className="flex gap-4 mt-2">
                             <button onClick={() => { setSelfFilmed(true); setIsEdited(null); }} className={`flex-1 py-3.5 rounded-xl border-2 ${selfFilmed === true ? 'bg-zinc-800 border-lime-500 text-white font-medium' : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'} text-xs font-poppins transition-all`}>Yes</button>
                             <button onClick={() => setSelfFilmed(false)} className={`flex-1 py-3.5 rounded-xl border-2 ${selfFilmed === false ? 'bg-zinc-800 border-lime-500 text-white font-medium' : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'} text-xs font-poppins transition-all`}>No</button>
                         </div>
-                        
+
                         <button
                             onClick={nextStep}
                             disabled={selfFilmed === null}
@@ -262,7 +262,7 @@ export default function SubmissionForm() {
                             <h2 className="text-2xl font-poor-story tracking-wide mb-1 text-white">ANY EDITS OR CHANGES?</h2>
                             <p className="text-zinc-400 font-poppins text-sm leading-relaxed">Since you didn't film this, let us know if you modified it.</p>
                         </div>
-                        
+
                         <div className="flex gap-4 mt-2">
                             <button onClick={() => setIsEdited(true)} className={`flex-1 py-3.5 rounded-xl border-2 ${isEdited === true ? 'bg-zinc-800 border-lime-500 text-white font-medium' : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'} text-xs font-poppins transition-all`}>Yes, I edited it</button>
                             <button onClick={() => setIsEdited(false)} className={`flex-1 py-3.5 rounded-xl border-2 ${isEdited === false ? 'bg-zinc-800 border-lime-500 text-white font-medium' : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'} text-xs font-poppins transition-all`}>No changes</button>
@@ -284,11 +284,11 @@ export default function SubmissionForm() {
                             {sourceChannel ? (
                                 (() => {
                                     const srcLower = sourceChannel.toLowerCase();
-                                    const imgSource = 
-                                        srcLower.includes("opus") || srcLower.includes("klips") ? "/opusklips_new.png" : 
-                                        srcLower.includes("clipman") || srcLower.includes("oneman") ? "/theoneman.png" : 
-                                        null;
-                                    
+                                    const imgSource =
+                                        srcLower.includes("opus") || srcLower.includes("klips") ? "/opusklips_new.png" :
+                                            srcLower.includes("clipman") || srcLower.includes("oneman") ? "/theoneman.png" :
+                                                null;
+
                                     if (imgSource) {
                                         return <Image src={imgSource} alt={sourceChannel} fill className="object-cover" sizes="80px" />;
                                     }
@@ -301,7 +301,7 @@ export default function SubmissionForm() {
                         <p className="text-zinc-300 font-poppins text-[15px] leading-relaxed max-w-xs mx-auto">
                             If your clip is selected, it will be posted on our channel, and you will be notified through email.
                         </p>
-                        
+
                         <button
                             onClick={nextStep}
                             className="w-full mt-6 bg-lime-500 text-black font-poor-story tracking-wider text-xl py-4 rounded-xl hover:scale-[1.02] hover:bg-lime-400 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(132,204,22,0.3)]"
@@ -336,7 +336,7 @@ export default function SubmissionForm() {
                                     className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3.5 text-sm font-poppins focus:outline-none focus:border-lime-500 placeholder:text-zinc-600 transition-all text-white shadow-inner"
                                 />
                             </div>
-                            
+
                             <div className="space-y-2">
                                 <label className="flex items-center gap-2 text-xs font-poppins font-semibold uppercase tracking-wider text-zinc-300 ml-1">
                                     <div className="w-4 h-4 text-lime-500 flex items-center justify-center font-bold">@</div> Email Address

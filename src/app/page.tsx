@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Menu, X, Play, Pause, Heart, MessageCircle, Send, MoreHorizontal, MoreVertical, Music, ThumbsUp, ThumbsDown, Share2, Bookmark, Plus, CloudUpload, Info, UploadCloud } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,6 +15,16 @@ export default function Home() {
   const scrollToSubmission = () => {
     submissionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  // Auto-scroll to submission section when visiting with #submit hash (bio link)
+  useEffect(() => {
+    if (window.location.hash === '#submit') {
+      // Small delay to ensure the page is fully rendered
+      setTimeout(() => {
+        submissionRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+  }, []);
   return (
     <div className="min-h-screen bg-black text-white relative overflow-x-hidden max-w-[100vw]">
 
