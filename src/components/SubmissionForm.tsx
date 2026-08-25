@@ -290,7 +290,7 @@ export default function SubmissionForm() {
                                                 null;
 
                                     if (imgSource) {
-                                        return <Image src={imgSource} alt={sourceChannel} fill className="object-cover" sizes="80px" />;
+                                        return <Image src={imgSource} alt={sourceChannel} fill className="object-cover" quality={100} sizes="(max-width: 768px) 150px, 150px" />;
                                     }
                                     return <span className="text-4xl font-anton tracking-wider text-lime-500 uppercase">{sourceChannel.charAt(0)}</span>;
                                 })()

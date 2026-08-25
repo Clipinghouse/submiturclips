@@ -280,7 +280,7 @@ export default function Home() {
                     channel.platform === 'tiktok' ? 'bg-gradient-to-tr from-cyan-400 to-pink-500' : 'bg-zinc-700'
                   }`}>
                   <div className="w-11 h-11 rounded-full border-[2px] border-black bg-zinc-900 overflow-hidden relative">
-                    <Image src={channel.src} alt={`Channel ${i}`} fill className="object-cover" sizes="44px" />
+                    <Image src={channel.src} alt={`Channel ${i}`} fill className="object-cover" quality={100} sizes="(max-width: 768px) 100px, 100px" />
                   </div>
                 </div>
               </a>
