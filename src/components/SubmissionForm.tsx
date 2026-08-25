@@ -299,7 +299,7 @@ export default function SubmissionForm() {
                             )}
                         </div>
                         <p className="text-zinc-300 font-poppins text-[15px] leading-relaxed max-w-xs mx-auto">
-                            If your clip is selected, it will be posted on our channel, and you will be notified through email.
+                            If your clip is selected, it will be posted on our channel{sourceChannel ? <strong className="text-lime-500"> @{sourceChannel}</strong> : ""}, and you will be notified through email.
                         </p>
 
                         <button
