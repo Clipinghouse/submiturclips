@@ -76,7 +76,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* 1st Viewport (Hero) */}
-      <main className="flex flex-col min-h-[75vh] px-4 pt-6 pb-5 relative overflow-visible z-0 w-full max-w-lg mx-auto">
+      <main className="flex flex-col min-h-[75vh] lg:min-h-fit px-4 pt-6 pb-5 lg:pb-10 relative overflow-visible z-0 w-full max-w-lg mx-auto">
         {/* Deep Space Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-black to-black -z-10" />
 
@@ -262,7 +262,7 @@ export default function Home() {
       </main>
 
       {/* 2nd Viewport (Submission Engine) */}
-      <section ref={submissionRef} className="min-h-screen w-full bg-black flex flex-col items-center px-6 pt-4 pb-6 relative z-10 overflow-hidden">
+      <section ref={submissionRef} className="min-h-[100dvh] lg:min-h-fit w-full bg-black flex flex-col items-center px-6 pt-4 pb-6 relative z-10 overflow-hidden">
         {/* Deep Gradient Transition */}
         <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-zinc-900/40 via-zinc-900/10 to-transparent -z-10 pointer-events-none"></div>
         <div className="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-lime-500/20 to-transparent"></div>
