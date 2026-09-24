@@ -37,6 +37,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${poppins.variable} ${poorStory.variable} ${anton.variable} h-full antialiased font-sans`}
+      suppressHydrationWarning
     >
       <head>
         {gtmId && (

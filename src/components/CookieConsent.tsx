@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Cookie, X, Lock, Check, ChevronDown, ChevronUp } from "lucide-react";
-
+import { Cookie, Lock, Check } from "lucide-react";
 import { getStoredConsent, hasDismissedBanner, resetConsent, setConsent } from "@/lib/consent";
 
 export const getFunctionalConsent = () => getStoredConsent() === 'granted';
@@ -10,41 +9,26 @@ export { hasDismissedBanner, resetConsent as resetCookieConsent };
 
 export default function CookieConsent() {
     const [showBanner, setShowBanner] = useState(false);
-    const [showPanel, setShowPanel] = useState(false);
-    const [functional, setFunctional] = useState(true);
-    const [detailsOpen, setDetailsOpen] = useState(false);
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
         const init = () => {
             setShowBanner(!hasDismissedBanner());
-            setFunctional(getStoredConsent() === 'granted');
         };
         init();
         window.addEventListener("cookie_consent_change", init);
         return () => window.removeEventListener("cookie_consent_change", init);
     }, []);
 
-    const withdrawConsent = () => {
-        setFunctional(false);
+    const rejectAll = () => {
         setConsent("denied");
-        setShowPanel(false);
-        setShowBanner(false);
-        window.dispatchEvent(new Event("cookie_consent_change"));
-    };
-
-    const changeConsent = () => {
-        setConsent(functional ? "granted" : "denied");
-        setShowPanel(false);
         setShowBanner(false);
         window.dispatchEvent(new Event("cookie_consent_change"));
     };
 
     const acceptAll = () => {
-        setFunctional(true);
         setConsent("granted");
-        setShowPanel(false);
         setShowBanner(false);
         window.dispatchEvent(new Event("cookie_consent_change"));
     };
@@ -54,11 +38,11 @@ export default function CookieConsent() {
     return (
         <>
             {/* Floating Chat-head */}
-            {!showBanner && !showPanel && (
+            {!showBanner && (
                 <div className="pointer-events-none fixed bottom-6 inset-x-0 z-[9990] flex justify-center">
                     <div className="w-full max-w-md relative">
                         <button
-                            onClick={() => setShowPanel(true)}
+                            onClick={() => setShowBanner(true)}
                             className="pointer-events-auto absolute bottom-0 left-6 w-12 h-12 bg-[#0c0c0c] text-white rounded-full flex items-center justify-center shadow-2xl border border-zinc-800 hover:scale-105 transition-transform"
                             aria-label="Cookie Settings"
                         >
@@ -68,138 +52,57 @@ export default function CookieConsent() {
                 </div>
             )}
 
-            {/* Overlay */}
-            {showPanel && (
-                <div
-                    className="fixed inset-0 bg-black/60 pointer-events-auto z-[9995] backdrop-blur-sm"
-                    onClick={() => setShowPanel(false)}
-                />
-            )}
-
-            {/* Initial Banner */}
-            {showBanner && !showPanel && (
-                <div className="pointer-events-none fixed bottom-4 inset-x-0 z-[9999] flex justify-center">
+            {/* Banner */}
+            {showBanner && (
+                <div className="fixed bottom-4 inset-x-0 z-[9999] flex justify-center pointer-events-none">
                     <div className="w-full max-w-md px-4 pointer-events-auto text-left">
                         <div className="w-full bg-[#0c0c0c] border border-zinc-900 rounded-2xl p-5 shadow-2xl">
-                            <div className="flex items-start gap-4 mb-5">
+                            <div className="flex items-start gap-4 mb-2">
                                 <Cookie className="w-6 h-6 text-white shrink-0 mt-0.5" />
                                 <div>
                                     <h3 className="text-white text-[15px] font-semibold mb-1 font-poppins">We value your privacy</h3>
-                                    <p className="text-zinc-400 text-[13px] leading-relaxed font-poppins">
-                                        We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.
+                                    <p className="text-zinc-400 text-[13px] leading-relaxed font-poppins mb-4">
+                                        We use cookies to enhance your browsing experience and analyze our traffic.
                                     </p>
+
+                                    <div className="space-y-3 mb-2">
+                                        <div className="flex items-start gap-2">
+                                            <Lock className="w-[14px] h-[14px] text-zinc-500 mt-[2px]" />
+                                            <div>
+                                                <p className="text-white text-[13px] font-medium leading-none mb-1">Necessary</p>
+                                                <p className="text-zinc-500 text-[12px] leading-tight">Essential for the site's basic functionality.</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-start gap-2">
+                                            <div className="w-[14px] h-[14px] rounded-[3px] border border-zinc-600 flex items-center justify-center mt-[2px]">
+                                                <Check className="w-2.5 h-2.5 text-zinc-400" />
+                                            </div>
+                                            <div>
+                                                <p className="text-white text-[13px] font-medium leading-none mb-1">Statistics</p>
+                                                <p className="text-zinc-500 text-[12px] leading-tight">Allows us to analyze traffic. Optional.</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="flex gap-3">
+                            <div className="flex gap-3 mt-4">
                                 <button
-                                    onClick={() => setShowPanel(true)}
-                                    className="flex-1 py-3.5 rounded-xl bg-transparent border border-zinc-800 text-white text-[13px] font-semibold hover:bg-zinc-900 transition-colors font-poppins"
+                                    onClick={rejectAll}
+                                    className="flex-1 py-3 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-[13px] font-semibold hover:bg-zinc-800 transition-colors font-poppins"
                                 >
-                                    Custom
+                                    Reject
                                 </button>
                                 <button
                                     onClick={acceptAll}
-                                    className="flex-1 py-3.5 rounded-xl bg-white text-black text-[13px] font-bold hover:bg-zinc-200 transition-colors font-poppins"
+                                    className="flex-1 py-3 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-[13px] font-semibold hover:bg-zinc-800 transition-colors font-poppins"
                                 >
-                                    Accept All
+                                    Accept
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
             )}
-
-            {/* Configurable Settings Panel */}
-            {showPanel && (
-                <div className="pointer-events-none fixed inset-0 z-[9999] flex justify-center items-center">
-                    <div className="pointer-events-auto w-[92%] sm:w-[350px] max-h-[85vh] bg-[#0c0c0c] border border-zinc-900 rounded-xl overflow-hidden shadow-2xl font-poppins flex flex-col">
-                        <div className="flex justify-between items-center px-5 py-4 border-b border-zinc-900 shrink-0">
-                            <h2 className="text-white text-[14px] font-bold tracking-wide">Cookie settings</h2>
-                            <button onClick={() => setShowPanel(false)} className="text-zinc-500 hover:text-white transition-colors">
-                                <X className="w-4 h-4" />
-                            </button>
-                        </div>
-
-                        <div className="p-5 flex-1 overflow-y-auto">
-                            <h3 className="text-white text-[14px] font-bold tracking-wide mb-5">Your current state</h3>
-                            <div className="space-y-4 mb-8">
-                                <div className="flex items-center gap-3 text-white text-[14px]">
-                                    <Lock className="w-[18px] h-[18px] text-zinc-300 stroke-[1.5]" />
-                                    <span className="font-medium">Necessary</span>
-                                </div>
-                                <div className="flex items-center gap-3 text-white text-[14px]">
-                                    <Check className="w-[18px] h-[18px] text-zinc-300 stroke-[1.5]" />
-                                    <span className="font-medium">Statistics</span>
-                                </div>
-                                <div
-                                    className="flex items-center gap-3 text-white text-[14px] group cursor-pointer w-full"
-                                    onClick={() => setFunctional(!functional)}
-                                    role="checkbox"
-                                    aria-checked={functional}
-                                >
-                                    <div className="w-[18px] h-[18px] rounded-[4px] border border-zinc-600 flex items-center justify-center transition-colors group-hover:border-zinc-400 pointer-events-none bg-transparent">
-                                        {functional && <Check className="w-3.5 h-3.5 text-white stroke-[2.5]" />}
-                                    </div>
-                                    <span className="font-medium">Preferences</span>
-                                </div>
-                            </div>
-
-                            <button
-                                onClick={() => setDetailsOpen(!detailsOpen)}
-                                className="flex items-center gap-2 text-white text-[14px] font-bold hover:opacity-80 transition-opacity mb-2"
-                            >
-                                Show details
-                                {detailsOpen ? <ChevronUp className="w-4 h-4 text-zinc-300" /> : <ChevronDown className="w-4 h-4 text-zinc-300" />}
-                            </button>
-
-                            {detailsOpen && (
-                                <div className="space-y-5 text-[13px] pr-2 overflow-y-auto custom-scrollbar mt-4 mb-2">
-                                    <div>
-                                        <p className="text-white font-semibold mb-1">Necessary (Always active)</p>
-                                        <p className="text-zinc-500 leading-relaxed">Essential for the site's basic functionality, like remembering your consent settings.</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-white font-semibold mb-1">Statistics (Required)</p>
-                                        <p className="text-zinc-500 leading-relaxed">Allows us to analyze traffic via Google Analytics. All data is aggregated.</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-white font-semibold mb-1">Preferences</p>
-                                        <p className="text-zinc-500 leading-relaxed">Remembers your form progress so you don't lose data on page refreshes.</p>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="p-4 border-t border-zinc-900 flex gap-3 shrink-0 bg-[#0c0c0c]">
-                            <button
-                                onClick={withdrawConsent}
-                                className="flex-1 py-3 px-3 bg-[#111] border border-zinc-800 text-white text-[13px] font-bold rounded-lg hover:bg-zinc-800 transition-colors text-center"
-                            >
-                                Withdraw
-                            </button>
-                            <button
-                                onClick={changeConsent}
-                                className="flex-1 py-3 px-3 bg-white text-black text-[13px] font-bold rounded-lg hover:bg-zinc-200 transition-colors text-center"
-                            >
-                                Change
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            <style jsx global>{`
-                .custom-scrollbar::-webkit-scrollbar {
-                    width: 4px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-track {
-                    background: transparent;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background-color: #27272a;
-                    border-radius: 10px;
-                }
-            `}</style>
         </>
     );
 }
