@@ -3,24 +3,10 @@
 import { useState, useEffect } from "react";
 import { Cookie, X, Lock, Check, ChevronDown, ChevronUp } from "lucide-react";
 
-const STORAGE_KEY = "cookie_consent";
-const FUNCTIONAL_KEY = "cookie_functional";
+import { getStoredConsent, hasDismissedBanner, resetConsent, setConsent } from "@/lib/consent";
 
-export function getFunctionalConsent(): boolean {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem(FUNCTIONAL_KEY) !== "denied";
-}
-
-export function hasDismissedBanner(): boolean {
-    if (typeof window === "undefined") return true;
-    return localStorage.getItem(STORAGE_KEY) === "dismissed";
-}
-
-export function resetCookieConsent() {
-    if (typeof window === "undefined") return;
-    localStorage.removeItem(STORAGE_KEY);
-    window.dispatchEvent(new Event("cookie_consent_change"));
-}
+export const getFunctionalConsent = () => getStoredConsent() === 'granted';
+export { hasDismissedBanner, resetConsent as resetCookieConsent };
 
 export default function CookieConsent() {
     const [showBanner, setShowBanner] = useState(false);
@@ -32,9 +18,8 @@ export default function CookieConsent() {
     useEffect(() => {
         setIsClient(true);
         const init = () => {
-            const dismissed = localStorage.getItem(STORAGE_KEY) === "dismissed";
-            setShowBanner(!dismissed);
-            setFunctional(localStorage.getItem(FUNCTIONAL_KEY) !== "denied");
+            setShowBanner(!hasDismissedBanner());
+            setFunctional(getStoredConsent() === 'granted');
         };
         init();
         window.addEventListener("cookie_consent_change", init);
@@ -43,16 +28,14 @@ export default function CookieConsent() {
 
     const withdrawConsent = () => {
         setFunctional(false);
-        localStorage.setItem(STORAGE_KEY, "dismissed");
-        localStorage.setItem(FUNCTIONAL_KEY, "denied");
+        setConsent("denied");
         setShowPanel(false);
         setShowBanner(false);
         window.dispatchEvent(new Event("cookie_consent_change"));
     };
 
     const changeConsent = () => {
-        localStorage.setItem(STORAGE_KEY, "dismissed");
-        localStorage.setItem(FUNCTIONAL_KEY, functional ? "granted" : "denied");
+        setConsent(functional ? "granted" : "denied");
         setShowPanel(false);
         setShowBanner(false);
         window.dispatchEvent(new Event("cookie_consent_change"));
@@ -60,8 +43,7 @@ export default function CookieConsent() {
 
     const acceptAll = () => {
         setFunctional(true);
-        localStorage.setItem(STORAGE_KEY, "dismissed");
-        localStorage.setItem(FUNCTIONAL_KEY, "granted");
+        setConsent("granted");
         setShowPanel(false);
         setShowBanner(false);
         window.dispatchEvent(new Event("cookie_consent_change"));
